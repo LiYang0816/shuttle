@@ -15,7 +15,7 @@
 export default {
   data () {
     return {
-      canTry: '放进来'
+      canTry: '放进来吧'
     }
   },
   mounted () {
