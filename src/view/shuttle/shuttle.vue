@@ -150,6 +150,7 @@ export default {
             console.log(elem, i, "参数")
           })
         });
+        this.checkLeftList = [];
       }
 
     },
@@ -169,7 +170,13 @@ export default {
             console.log(elem, i, "参数")
           })
         });
+        this.initCheck();
+        console.log(this.checkRightList, "msgmsgmsg")
       }
+    },
+    initCheck () {
+      this.checkRightList = [];
+      this.checkLeftList = [];
     },
     leftCheck (v) {
       if (v.i && !this.checkLeftList.includes(v.msg)) {
