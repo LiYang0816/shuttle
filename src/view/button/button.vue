@@ -19,11 +19,14 @@
       <div>
         <span @click="gotoUpLv">Return</span>
       </div>
+      <div>
+        <span @click="gotoNextLv">Go</span>
+      </div>
     </footer>
   </div>
 </template>
 <script>
-import api from '../../api/index.js'
+import utils from '../../utils/index.js'
 export default {
   data () {
     return {
@@ -86,7 +89,8 @@ export default {
         [2, 4, 6]
       ],
       Xresult: [],
-      Oresult: []
+      Oresult: [],
+      winToF: false
     }
 
   },
@@ -109,8 +113,13 @@ export default {
     gotoUpLv () {
       this.$router.go(-1);
     },
+    gotoNextLv () {
+      this.$router.push({
+        path: '/element'
+      });
+    },
     clickPlay (ele) {
-      if (ele.canClick && this.counts < 10) {
+      if (ele.canClick && this.counts < 10 && !this.winToF) {
         if (this.counts % 2 != 0 && this.list[ele.id - 1].content == '') {
           this.list[ele.id - 1].content = 'X';
           console.log(this.counts, "下X棋时");
@@ -128,7 +137,6 @@ export default {
           console.log(this.counts, "下O棋时");
           if (this.counts > 5 && this.list[ele.id - 1].content == 'O') {
             this.list.forEach((m, i) => {
-
               if (m.content == 'O' && !this.Oresult.includes(i)) {
                 this.Oresult.push(i);
               }
@@ -146,18 +154,20 @@ export default {
             if (arr.sort().toString() == this.Xresult.sort().toString()) {
               setTimeout(() => {
                 alert('X棋赢了');
-              }, 0)
+              }, 100)
+              this.winToF = true;
             }
           })
         } else {
-          let newArr = api.allSubSets(this.Xresult);
+          let newArr = utils.allSubSets(this.Xresult);
           newArr.forEach(ele => {
             if (ele.length == 3) {
               this.winner.forEach(arr => {
                 if (arr.sort().toString() == ele.sort().toString()) {
                   setTimeout(() => {
                     alert('X棋赢了');
-                  }, 0)
+                  }, 100)
+                  this.winToF = true;
                 }
               })
             }
@@ -173,7 +183,7 @@ export default {
             }
           })
         } else {
-          let newArr = api.allSubSets(this.Oresult);
+          let newArr = utils.allSubSets(this.Oresult);
           newArr.forEach(ele => {
             if (ele.length == 3) {
               this.winner.forEach(arr => {
@@ -224,6 +234,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.footer div {
+  width: 50px;
+  height: 30px;
+  position: relative;
+}
+.footer div span {
   position: fixed;
   bottom: 0;
 }
