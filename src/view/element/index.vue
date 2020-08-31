@@ -29,6 +29,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <footer class="footer">
+      <div>
+        <span @click="gotoUpLv">Return</span>
+      </div>
+      <div>
+        <span @click="gotoShuttle">GoShuttle</span>
+      </div>
+    </footer>
   </div>
 </template>
 <script>
@@ -88,6 +96,14 @@ export default {
         console.log(this.tableData.list);
       }, 1000)
     },
+    gotoShuttle () {
+      this.$router.push({
+        path: '/'
+      });
+    },
+    gotoUpLv () {
+      this.$router.go(-1);
+    }
   }
 }
 </script>
@@ -96,5 +112,20 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer div {
+  width: 80px;
+  height: 30px;
+  position: relative;
+}
+.footer div span {
+  position: fixed;
+  bottom: 0;
 }
 </style>

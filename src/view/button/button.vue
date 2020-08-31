@@ -236,7 +236,7 @@ export default {
   align-items: center;
 }
 .footer div {
-  width: 50px;
+  width: 80px;
   height: 30px;
   position: relative;
 }
