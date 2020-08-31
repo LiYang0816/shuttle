@@ -1,5 +1,4 @@
 ＃班车
-哈哈
 ##项目设置
 ```
 npm install
@@ -22,3 +21,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+哈哈
