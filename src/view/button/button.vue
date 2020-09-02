@@ -15,7 +15,6 @@
         <span>{{item.content}}</span>
       </div>
     </div>
-    <van-button type="primary" @click="clickme">点我</van-button>
     <div class="footer">
       <div>
         <span @click="gotoUpLv">Return</span>
