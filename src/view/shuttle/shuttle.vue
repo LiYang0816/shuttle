@@ -1,8 +1,8 @@
 <template>
   <div id="shuttle">
     <header class="header">
-      {{headerMsg}}
-      <span>{{programName}}</span>
+      <span class="headerMsg">{{headerMsg}}</span>
+      <span class="programName">{{programName}}</span>
     </header>
     <main class="main">
       <div class="main-content">
@@ -222,11 +222,16 @@ export default {
   font-weight: 700;
 }
 
-.header span {
-  color: rgba(216, 39, 22, 0.952);
-  font-size: 48px;
+.header .headerMsg {
+  width: 30px;
+  color: #edaa35;
+  font-size: 24px;
 }
 
+.header .programName {
+  color: rgba(216, 39, 22, 0.952);
+  font-size: 42px;
+}
 .shuttle {
   display: flex;
   align-items: center;

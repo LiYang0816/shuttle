@@ -7,8 +7,9 @@ import Axios from 'axios';
 import Vant from 'vant';
 import 'vant/lib/index.css';
 
-Vue.use(Element);
 Vue.use(Vant);
+
+Vue.use(Element);
 Vue.prototype.axios = Axios;
 Vue.config.productionTip = false;
 

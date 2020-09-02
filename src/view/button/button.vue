@@ -15,6 +15,7 @@
         <span>{{item.content}}</span>
       </div>
     </div>
+    <van-button plain color="#7232dd" round @click="clickme">点我</van-button>
     <div class="footer">
       <div>
         <span @click="gotoUpLv">Return</span>
