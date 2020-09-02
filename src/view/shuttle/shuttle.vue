@@ -263,11 +263,13 @@ export default {
 .flex-col {
   display: flex;
   flex-direction: column;
+  height: 500px;
 }
 
 .goBtn {
   display: flex;
   flex-direction: column;
+  height: 325px;
 }
 
 .gotoBtn {
