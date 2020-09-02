@@ -15,6 +15,7 @@
         <span>{{item.content}}</span>
       </div>
     </div>
+    <van-button @click="clickme"></van-button>
     <footer class="footer">
       <div>
         <span @click="gotoUpLv">Return</span>
@@ -197,6 +198,10 @@ export default {
           })
         }
       }
+    },
+    clickme () {
+      console.log(this, 'this=------');
+      this.$toast('哈哈');
     }
   }
 }
