@@ -8,7 +8,6 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 
 Vue.use(Vant);
-
 Vue.use(Element);
 Vue.prototype.axios = Axios;
 Vue.config.productionTip = false;

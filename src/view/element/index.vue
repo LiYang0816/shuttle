@@ -29,17 +29,22 @@
         </template>
       </el-table-column>
     </el-table>
-    <footer class="footer">
+    <el-button type="success" round>哈哈</el-button>
+    <div class="footer">
       <div>
         <span @click="gotoUpLv">Return</span>
       </div>
       <div>
         <span @click="gotoShuttle">GoShuttle</span>
       </div>
-    </footer>
+    </div>
   </div>
 </template>
 <script>
+// import Vue from 'vue';
+// import Element from 'element-ui';
+// import 'element-ui/lib/theme-chalk/index.css';
+// Vue.use(Element);
 // import api from '../../api/index'
 export default {
   data () {
@@ -51,6 +56,7 @@ export default {
   },
   mounted () {
     this.getDataFromServer();
+    console.log(this, 'this');
   },
   methods: {
     getDataFromServer () { // 模仿调用接口
@@ -109,15 +115,19 @@ export default {
 </script>
 <style scoped>
 #element {
-  display: flex;
+  width: 100%;
+  height: 100%;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
 .footer {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  bottom: 0;
 }
 .footer div {
   width: 80px;
@@ -125,7 +135,7 @@ export default {
   position: relative;
 }
 .footer div span {
-  position: fixed;
-  bottom: 0;
+  /* position: fixed;
+  bottom: 0; */
 }
 </style>
