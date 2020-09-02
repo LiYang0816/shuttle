@@ -210,12 +210,7 @@ export default {
 
 }
 </script>
-<style>
-* {
-  margin: 0;
-  padding: 0;
-}
-
+<style  scoped>
 .header {
   width: 100%;
   height: 115px;
@@ -263,11 +258,13 @@ export default {
 .flex-col {
   display: flex;
   flex-direction: column;
+  height: 500px;
 }
 
 .goBtn {
   display: flex;
   flex-direction: column;
+  height: 325px;
 }
 
 .gotoBtn {

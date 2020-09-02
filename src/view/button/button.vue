@@ -15,14 +15,15 @@
         <span>{{item.content}}</span>
       </div>
     </div>
-    <footer class="footer">
+    <van-button type="primary" @click="clickme">点我</van-button>
+    <div class="footer">
       <div>
         <span @click="gotoUpLv">Return</span>
       </div>
       <div>
         <span @click="gotoNextLv">Go</span>
       </div>
-    </footer>
+    </div>
   </div>
 </template>
 <script>
@@ -197,12 +198,17 @@ export default {
           })
         }
       }
+    },
+    clickme () {
+      console.log(this, 'this=------');
+      this.$toast('哈哈');
     }
   }
 }
 </script>
 <style scoped>
 #button {
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -222,7 +228,7 @@ export default {
   height: 30px;
 }
 .box {
-  width: 500px;
+  width: 300px;
   height: 300px;
   border: 1px solid #ff4500;
   display: flex;
@@ -231,18 +237,16 @@ export default {
 }
 .footer {
   width: 100%;
+  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  bottom: 0;
 }
 .footer div {
   width: 80px;
-  height: 30px;
   position: relative;
-}
-.footer div span {
-  position: fixed;
-  bottom: 0;
 }
 .checkerboard {
   width: 300px;
