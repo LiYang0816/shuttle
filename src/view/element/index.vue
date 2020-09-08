@@ -41,11 +41,6 @@
   </div>
 </template>
 <script>
-// import Vue from 'vue';
-// import Element from 'element-ui';
-// import 'element-ui/lib/theme-chalk/index.css';
-// Vue.use(Element);
-// import api from '../../api/index'
 export default {
   data () {
     return {
@@ -133,9 +128,5 @@ export default {
   width: 80px;
   height: 30px;
   position: relative;
-}
-.footer div span {
-  /* position: fixed;
-  bottom: 0; */
 }
 </style>
