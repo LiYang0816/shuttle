@@ -6,9 +6,12 @@ import router from './router/router';
 import Axios from 'axios';
 import Vant from 'vant';
 import 'vant/lib/index.css';
+// import Clipboard from 'clipboard';
 
 Vue.use(Vant);
 Vue.use(Element);
+// Vue.use(Clipboard);
+
 Vue.prototype.axios = Axios;
 Vue.config.productionTip = false;
 

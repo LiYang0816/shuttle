@@ -5,6 +5,9 @@ import Button from '../view/button/button'
 import Element from '../view/element/index'
 import Tesk from '../view/test/task'
 import TaskFrom from '../view/test/taskFrom'
+import VantIndex from '../view/vant/index'
+import LyyTree from '../view/element/lyyTree'
+import LyyDialog from '../view/element/lyyDialog'
 
 Vue.use(Router)
 
@@ -35,6 +38,21 @@ let router = new Router({
         path: '/taskFrom',
         name: 'taskFrom',
         component: TaskFrom
+      },
+      {
+        path: '/VantIndex',
+        name: 'VantIndex',
+        component: VantIndex
+      },
+      {
+        path: '/LyyTree',
+        name: 'LyyTree',
+        component: LyyTree
+      },
+      {
+        path: '/LyyDialog',
+        name: 'LyyDialog',
+        component: LyyDialog
       }
     ]
 })
