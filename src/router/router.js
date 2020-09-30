@@ -3,11 +3,13 @@ import Router from 'vue-router'
 import Shuttle from '../view/shuttle/shuttle'
 import Button from '../view/button/button'
 import Element from '../view/element/index'
-import Tesk from '../view/test/task'
+import Task from '../view/test/task'
 import TaskFrom from '../view/test/taskFrom'
 import VantIndex from '../view/vant/index'
 import LyyTree from '../view/element/lyyTree'
 import LyyDialog from '../view/element/lyyDialog'
+import antDesign from '../view/antDesign/index'
+import swordImmortal from '../view/swordImmortal/index'
 
 Vue.use(Router)
 
@@ -30,9 +32,9 @@ let router = new Router({
         component: Element
       },
       {
-        path: '/tesk',
-        name: 'tesk',
-        component: Tesk
+        path: '/Task',
+        name: 'Task',
+        component: Task
       },
       {
         path: '/taskFrom',
@@ -53,6 +55,16 @@ let router = new Router({
         path: '/LyyDialog',
         name: 'LyyDialog',
         component: LyyDialog
+      },
+      {
+        path: '/antDesign',
+        name: 'antDesign',
+        component: antDesign
+      },
+      {
+        path: '/swordImmortal',
+        name: 'swordImmortal',
+        component: swordImmortal
       }
     ]
 })
