@@ -1,13 +1,41 @@
 <template>
   <div id="element" ref="element">
-    <el-table :data="tableData.list" style="width:100%;" @row-click="rowClick">
-      <el-table-column prop="createman" label="创建人" align="center"></el-table-column>
-      <el-table-column prop="title" label="标题" align="center"></el-table-column>
-      <el-table-column prop="createTime" label="任务开始时间" align="center"></el-table-column>
-      <el-table-column prop="endTime" label="任务结束时间" align="center"></el-table-column>
-      <el-table-column prop="levelName" label="任务等级" align="center"></el-table-column>
-      <el-table-column prop="instructName" label="任务指令" align="center"></el-table-column>
-      <el-table-column prop="unitName" label="指定单位" align="center"></el-table-column>
+    <el-table :data="tableData.list" style="width: 100%" @row-click="rowClick">
+      <el-table-column
+        prop="createman"
+        label="创建人"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="title"
+        label="标题"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="createTime"
+        label="任务开始时间"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="endTime"
+        label="任务结束时间"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="levelName"
+        label="任务等级"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="instructName"
+        label="任务指令"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        prop="unitName"
+        label="指定单位"
+        align="center"
+      ></el-table-column>
       <el-table-column label="任务状态" align="center">
         <!-- 通过插槽来动态渲染数据，判断examine的类型来代表不同的结果 -->
         <template slot-scope="scope">
@@ -23,13 +51,26 @@
       </el-table-column>
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
-          <i class="el-icon-edit" v-if="scope.row.isTrue == 1" @click.stop="openDialog('1')"></i>
-          <i class="el-icon-arrow-left" v-else @click.stop="openDialog('2')"></i>
-          <i class="el-icon-delete"></i>
+          <i
+            class="el-icon-edit icon-color-48B29B"
+            v-if="scope.row.isTrue == 1"
+            @click.stop="openDialog('1')"
+          ></i>
+          <i
+            class="el-icon-arrow-left icon-color-48B29B"
+            v-else
+            @click.stop="openDialog('2')"
+          ></i>
+          |
+          <i class="el-icon-delete icon-color-F56C6C"></i>
         </template>
       </el-table-column>
     </el-table>
-    <lyyDialog :dialogVisible="dialogVisible" :dialogTitle="dialogTitle" @falseShow="closeDialog"></lyyDialog>
+    <lyyDialog
+      :dialogVisible="dialogVisible"
+      :dialogTitle="dialogTitle"
+      @falseShow="closeDialog"
+    ></lyyDialog>
     <lyyTree :chooseNodeId="chooseNodeId"></lyyTree>
     <!-- <el-button type="success" round @click="testNum">哈哈</el-button> -->
     <div class="footer">
@@ -170,5 +211,11 @@ export default {
   width: 80px;
   height: 30px;
   position: relative;
+}
+.icon-color-48B29B {
+  color: #48b29b;
+}
+.icon-color-F56C6C {
+  color: #f56c6c;
 }
 </style>

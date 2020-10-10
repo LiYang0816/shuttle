@@ -5,6 +5,7 @@ import Button from '../view/button/button'
 import Element from '../view/element/index'
 import Task from '../view/test/task'
 import TaskFrom from '../view/test/taskFrom'
+import testIndex from '../view/test/index'
 import VantIndex from '../view/vant/index'
 import LyyTree from '../view/element/lyyTree'
 import LyyDialog from '../view/element/lyyDialog'
@@ -40,6 +41,11 @@ let router = new Router({
         path: '/taskFrom',
         name: 'taskFrom',
         component: TaskFrom
+      },
+      {
+        path: '/testIndex',
+        name: 'testIndex',
+        component: testIndex
       },
       {
         path: '/VantIndex',

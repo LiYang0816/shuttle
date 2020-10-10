@@ -85,9 +85,6 @@ export default {
         leftSeal: "稽首天外天；",
         rightSeal: "道法照大千。"
       }, {
-        leftSeal: "稽首天外天；",
-        rightSeal: "道法照大千。"
-      }, {
         leftSeal: "慷慨去也；",
         rightSeal: "浩然归也。"
       }, {
