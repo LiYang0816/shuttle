@@ -5,20 +5,20 @@
       :data="data"
       show-checkbox
       node-key="label"
-      :default-checked-keys="theNode"
       :expand-on-click-node="false"
       :props="defaultProps"
       @check="getNode"
     >
       <span class="custom-tree-node" slot-scope="{ node, data }">
         <span>{{ node.label }}</span>
+        <!-- 这里的node是配置的defaultProps，node.label也就是配置的defaultProps.label,若配置的是id，那node.label就显示id -->
         <span class="tree-tag">
           <el-tag
             size="small"
             :class="
-              node.label.includes('一级')
+              node.label == '一级'
                 ? 'primary-tags'
-                : node.label.includes('二级')
+                : node.label == '二级'
                 ? 'success-tags'
                 : 'info-tags'
             "
@@ -29,11 +29,14 @@
         </span>
       </span>
     </el-tree>
+    <el-button @click="getAllNode">点击</el-button>
     <!-- :default-expanded-keys="[2, 3]" -->
   </div>
 </template>
 
 <script>
+
+// import debounce from './a.js'
 export default {
   name: 'LyyTree',
   props: ['chooseNodeId'],
@@ -88,7 +91,7 @@ export default {
         children: 'list',
         label: 'label'
       },
-      theNode: []
+      a: null
     }
   },
   components: {},
@@ -99,13 +102,34 @@ export default {
     getNode (msg, node) {
       console.log(msg, node, '选中的值');
     },
+    getAllNode () {
+      // this.debounce(() => {
+      //   console.log(this.$refs.tree.getCheckedNodes(), '选中的值');
+      // }, 300)()
+      if (this.a) clearTimeout(this.a);
+      console.log(123)
+      this.a = setTimeout(() => {
+        console.log(111)
+      }, 1000)
+    },
     setNodes (val) {
+      // this.$refs.tree.setCheckedKeys([]);
       if (val == 1) {
         this.$refs.tree.setCheckedKeys(['三级 1-1-2', '二级 3-2']);
       } else {
         this.$refs.tree.setCheckedKeys(['三级 1-1-2', '二级 2-1', '二级 3-2']);
       }
+    },
+    debounce (fn, interval = 1000) {
+      let timer;
+      return function () {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          fn.apply(this, arguments);
+        }, interval)
+      }
     }
+
   },
   watch: {
     chooseNodeId: function () {

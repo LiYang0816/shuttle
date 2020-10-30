@@ -1,5 +1,12 @@
 <template>
   <div class="antDesign">
+    <a-page-header
+      style="border: 1px solid rgb(235, 237, 240)"
+      title="Title"
+      sub-title="This is a subtitle"
+      :ghost="false"
+      @back="() => null"
+    />
     <!-- <a-form-model :model="form" :label-col="labelCol" :wrapper-col="wrapperCol">
       <a-form-model-item label="初次">
         <a-input v-model="form.name" />
@@ -99,7 +106,7 @@
         <h3>4</h3>
       </div>
     </a-carousel> -->
-    <a-upload
+    <!-- <a-upload
       name="avatar"
       list-type="picture-card"
       class="avatar-uploader"
@@ -112,7 +119,30 @@
         <a-icon :type="loading ? 'loading' : 'plus'" />
         <div class="ant-upload-text">Upload</div>
       </div>
-    </a-upload>
+    </a-upload> -->
+    <a-table :columns="columns" :data-source="data">
+      <a slot="name" slot-scope="text">{{ text }}</a>
+      <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
+      <a slot="age" slot-scope="ages">{{ ages }}</a>
+      <span slot="tags" slot-scope="tags">
+        <a-tag
+          v-for="tag in tags"
+          :key="tag"
+          :color="
+            tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'
+          "
+        >
+          {{ tag.toUpperCase() }}
+        </a-tag>
+      </span>
+      <span slot="action" slot-scope="text, record">
+        <a>Invite 一 {{ record.name }}</a>
+        <a-divider type="vertical" />
+        <a>Delete</a>
+        <a-divider type="vertical" />
+        <a class="ant-dropdown-link"> More actions <a-icon type="down" /> </a>
+      </span>
+    </a-table>
   </div>
 </template>
 
@@ -151,11 +181,11 @@
 //     ],
 //   },
 // ];
-function getBase64 (img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
-}
+// function getBase64 (img, callback) {
+//   const reader = new FileReader();
+//   reader.addEventListener('load', () => callback(reader.result));
+//   reader.readAsDataURL(img);
+// }
 export default {
   name: '',
   data () {
@@ -167,8 +197,61 @@ export default {
       // }
       // options,
       // dataSource: [],
-      loading: false,
-      imageUrl: '',
+      // loading: false,
+      // imageUrl: '',
+      data: [
+        {
+          key: '1',
+          name: 'John Brown',
+          age: 32,
+          address: 'New York No. 1 Lake Park',
+          tags: ['nice', 'developer'],
+        },
+        {
+          key: '2',
+          name: 'Jim Green',
+          age: 42,
+          address: 'London No. 1 Lake Park',
+          tags: ['loser'],
+        },
+        {
+          key: '3',
+          name: 'Joe Black',
+          age: 35,
+          address: 'Sidney No. 1 Lake Park',
+          tags: ['cool', 'teacher'],
+        },
+      ],
+      columns: [
+        {
+          dataIndex: 'name',
+          key: 'name',
+          slots: { title: 'customTitle' }, // 列表头自定义渲染
+          scopedSlots: { customRender: 'name' },
+        },
+        {
+          title: 'Age',
+          dataIndex: 'age',
+          key: 'age',
+          scopedSlots: { customRender: 'age' }, // 列内容自定义渲染
+        },
+        {
+          title: 'Address',
+          dataIndex: 'address',
+          key: 'address',
+        },
+        {
+          title: 'Tags',
+          key: 'tags',
+          dataIndex: 'tags',
+          scopedSlots: { customRender: 'tags' },
+        },
+        {
+          title: 'Action',
+          key: 'action',
+          scopedSlots: { customRender: 'action' },
+        },
+      ],
     }
   },
   components: {},
@@ -183,31 +266,31 @@ export default {
     // onChange (a, b, c) {
     //   console.log(a, b, c);
     // },
-    handleChange (info) {
-      // if (info.file.status === 'uploading') {
-      //   this.loading = true;
-      //   return;
-      // }
-      // if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, imageUrl => {
-        this.imageUrl = imageUrl;
-        this.loading = false;
-      });
-      // }
-    },
-    beforeUpload (file) {
-      console.log(file, '数据')
-      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-      // if (!isJpgOrPng) {
-      //   this.$message.error('You can only upload JPG file!');
-      // }
-      // const isLt2M = file.size / 1024 / 1024 < 2;
-      // if (!isLt2M) {
-      //   this.$message.error('Image must smaller than 2MB!');
-      // }
-      return isJpgOrPng;
-    },
+    // handleChange (info) {
+    // if (info.file.status === 'uploading') {
+    //   this.loading = true;
+    //   return;
+    // }
+    // if (info.file.status === 'done') {
+    // Get this url from response in real world.
+    // getBase64(info.file.originFileObj, imageUrl => {
+    //   this.imageUrl = imageUrl;
+    //   this.loading = false;
+    // });
+    // }
+    // },
+    // beforeUpload (file) {
+    //   console.log(file, '数据')
+    //   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    // if (!isJpgOrPng) {
+    //   this.$message.error('You can only upload JPG file!');
+    // }
+    // const isLt2M = file.size / 1024 / 1024 < 2;
+    // if (!isLt2M) {
+    //   this.$message.error('Image must smaller than 2MB!');
+    // }
+    // return isJpgOrPng;
+    // },
   }
 }
 </script>

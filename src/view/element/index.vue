@@ -73,6 +73,20 @@
     ></lyyDialog>
     <lyyTree :chooseNodeId="chooseNodeId"></lyyTree>
     <!-- <el-button type="success" round @click="testNum">哈哈</el-button> -->
+    {{ bigSmall }}
+    <div class="selectDate">
+      <el-date-picker
+        v-model="selectDate"
+        type="daterange"
+        range-separator="至"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        format="yyyy 年 MM 月 dd 日"
+        value-format="yyyy-MM-dd"
+        :picker-options="pickerOptions"
+      >
+      </el-date-picker>
+    </div>
     <div class="footer">
       <div>
         <span @click="gotoUpLv">Return</span>
@@ -86,6 +100,8 @@
 <script>
 import lyyTree from './lyyTree'
 import lyyDialog from './lyyDialog'
+
+let timeOptionRange = '';
 export default {
   components: {
     lyyTree,
@@ -100,6 +116,24 @@ export default {
       dialogVisible: false,
       dialogTitle: '',
       // num: 1
+      selectDate: "", // 选择的时间,
+      pickerOptions: {
+        disabledDate (time) {
+          let secondNum = 60 * 60 * 24 * 7 * 1000;
+          if (timeOptionRange) {
+            return time.getTime() > timeOptionRange.getTime() + secondNum || time.getTime() < timeOptionRange.getTime() - secondNum;
+          }
+        }, onPick (time) {
+          //当第一时间选中才设置禁用
+          if (time.minDate && !time.maxDate) {
+            timeOptionRange = time.minDate;
+          }
+          if (time.maxDate) {
+            timeOptionRange = '';
+          }
+        }
+      },
+      bigSmall: '大小写'
     }
   },
   computed: {
@@ -198,6 +232,9 @@ export default {
   /* display: flex;
   justify-content: center;
   align-items: center; */
+}
+.el-date-editor /deep/ .el-range-separator {
+  padding: 0;
 }
 .footer {
   width: 100%;
