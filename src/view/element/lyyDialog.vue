@@ -4,17 +4,25 @@
       :title="dialogTitle"
       :visible.sync="dialogShow"
       width="30%"
-      :before-close="handleClose"
+      :before-close="dialogFormVisible"
+      @open="openDialog"
     >
-      <el-form :model="form" label-width="80px">
-        <el-form-item label="活动名称">
-          <el-input v-model="form.name" autocomplete="off"></el-input>
+      <el-form
+        :model="checkRow"
+        label-width="80px"
+        ref="dialogForm"
+        :rules="rules"
+      >
+        <el-form-item
+          label="名称"
+          required
+          prop="createman"
+          style="width: 400px"
+        >
+          <el-input v-model="checkRow.createman" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="活动区域">
-          <el-select v-model="form.region" placeholder="请选择活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
+        <el-form-item label="标题" style="width: 300px">
+          <el-input v-model="checkRow.title" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -28,30 +36,39 @@
 <script>
 export default {
   name: 'lyyDialog',
-  props: ['dialogVisible', 'dialogTitle'],
+  props: ['dialogVisible', 'dialogTitle', 'checkRow'],
   data () {
     return {
       form: {
-
+        createman: '',
+        title: ''
       },
-      dialogShow: false
+      dialogShow: false,
+      cache: {},
+      rules: {
+
+      }
     }
   },
   mounted () {
   },
   methods: {
     dialogFormVisible () {
+      console.log(this.checkRow, '1')
+      this.$refs.dialogForm.resetFields();
       this.dialogShow = false;
-      this.$emit('falseShow');
+      this.$emit('falseShow', this.checkRow.id);
     },
-    handleClose () {
-      this.dialogShow = false;
+    openDialog () {
+
+      // this.form = { ...this.checkRow };
+
     }
   },
   watch: {
     dialogVisible: function () {
-      console.log('show');
-      this.dialogShow = this.dialogVisible
+      // this.form = this.checkRow;
+      this.dialogShow = this.dialogVisible;
     }
   }
 }

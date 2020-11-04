@@ -1,15 +1,15 @@
 <template>
   <div id="shuttle">
     <header class="header">
-      <span class="headerMsg">{{headerMsg}}</span>
-      <span class="programName">{{programName}}</span>
+      <span class="headerMsg">{{ headerMsg }}</span>
+      <span class="programName">{{ programName }}</span>
     </header>
     <main class="main">
       <div class="main-content">
         <div v-if="choose">
-          <span @click="changeChoose">{{mainMsg.music}}</span>
+          <span @click="changeChoose">{{ mainMsg.music }}</span>
           <div>
-            <span>{{chooseTip}}</span>
+            <span>{{ chooseTip }}</span>
           </div>
           <div class="shuttle">
             <div class="goRight flex-col">
@@ -20,7 +20,7 @@
                 v-model="item.i"
                 :label="item.msg"
                 border
-                v-for="(item,index) in Winner"
+                v-for="(item, index) in Winner"
                 :key="index"
                 class="checkBtn"
                 name="item.msg"
@@ -33,7 +33,8 @@
                 class="gotoBtn"
                 icon="el-icon-arrow-left"
                 @click="goLeft"
-              >Winner</el-button>
+                >Winner</el-button
+              >
               <el-button type="primary" class="gotoBtn" @click="goRight">
                 Loser
                 <i class="el-icon-arrow-right"></i>
@@ -47,7 +48,7 @@
                 v-model="item.i"
                 :label="item.msg"
                 border
-                v-for="(item,index) in Loser"
+                v-for="(item, index) in Loser"
                 :key="index"
                 class="checkBtn"
                 name="item.msg"
@@ -57,15 +58,15 @@
           </div>
         </div>
         <div v-else>
-          <span @click="changeChoose">{{mainMsg.dance}}</span>
+          <span @click="changeChoose">{{ mainMsg.dance }}</span>
           <div>
-            <span>{{chooseTip}}</span>
+            <span>{{ chooseTip }}</span>
           </div>
         </div>
       </div>
     </main>
     <footer class="footer">
-      <span @click="goButtonRouter">{{footerMsg}}</span>
+      <span @click="goButtonRouter">{{ footerMsg }}</span>
     </footer>
   </div>
 </template>
@@ -121,6 +122,9 @@ export default {
   },
   created () {
     this.changeChoose();
+  },
+  mounted () {
+    console.log('shuttle');
   },
   methods: {
     changeChoose () {

@@ -54,26 +54,27 @@
           <i
             class="el-icon-edit icon-color-48B29B"
             v-if="scope.row.isTrue == 1"
-            @click.stop="openDialog('1')"
+            @click.stop="openDialog(scope.row)"
           ></i>
           <i
             class="el-icon-arrow-left icon-color-48B29B"
             v-else
-            @click.stop="openDialog('2')"
+            @click.stop="openDialog(scope.row)"
           ></i>
           |
           <i class="el-icon-delete icon-color-F56C6C"></i>
         </template>
       </el-table-column>
     </el-table>
-    <lyyDialog
+    <lyy-dialog
       :dialogVisible="dialogVisible"
       :dialogTitle="dialogTitle"
+      :checkRow="checkRow"
       @falseShow="closeDialog"
-    ></lyyDialog>
-    <lyyTree :chooseNodeId="chooseNodeId"></lyyTree>
+    ></lyy-dialog>
+    <!-- <lyyTree :chooseNodeId="chooseNodeId"></lyyTree> -->
     <!-- <el-button type="success" round @click="testNum">哈哈</el-button> -->
-    {{ bigSmall }}
+    <!-- {{ bigSmall }}
     <div class="selectDate">
       <el-date-picker
         v-model="selectDate"
@@ -86,7 +87,7 @@
         :picker-options="pickerOptions"
       >
       </el-date-picker>
-    </div>
+    </div> -->
     <div class="footer">
       <div>
         <span @click="gotoUpLv">Return</span>
@@ -98,13 +99,13 @@
   </div>
 </template>
 <script>
-import lyyTree from './lyyTree'
+// import lyyTree from './lyyTree'
 import lyyDialog from './lyyDialog'
 
 let timeOptionRange = '';
 export default {
   components: {
-    lyyTree,
+    // lyyTree,
     lyyDialog
   },
   data () {
@@ -133,65 +134,77 @@ export default {
           }
         }
       },
-      bigSmall: '大小写'
+      bigSmall: '大小写',
+      checkRow: {},
+      cache: {}
     }
   },
   computed: {
-    // newNum: function () {
-    //   return this.num;
-    // }
   },
   mounted () {
+    console.log('Element');
     this.getDataFromServer();
-    // console.log(this, 'this');
   },
   methods: {
-    // testNum () {
-    //   this.newNum = 2;
-    //   console.log(this.newNum, 'newNum');
-    // },
     getDataFromServer () { // 模仿调用接口
-      setTimeout(() => {
-        this.tableData.list = [
-          {
-            id: 1,
-            title: "还珠格格",
-            createman: "容嬷嬷",
-            instructId: 1,
-            levelId: 1,
-            unitId: 1,
-            createTime: "2020-08-30",
-            endTime: "2021-08-31",
-            receipt: 1,
-            examine: 0,
-            explain: "无",
-            content: "无",
-            isTrue: 1,
-            levelName: "一般",
-            instructName: "扎针",
-            unitName: "大清朝"
-          },
-          {
-            id: 2,
-            title: "剑来",
-            createman: "陈平安",
-            instructId: 2,
-            levelId: 3,
-            unitId: 3,
-            createTime: "2020-08-31",
-            endTime: "2020-09-01",
-            receipt: 0,
-            examine: 1,
-            explain: "无",
-            content: "无",
-            isTrue: 0,
-            levelName: "紧急",
-            instructName: "今天剑来吗",
-            unitName: "浩然天下"
-          }
-        ]
-        // console.log(this.tableData.list);
-      }, 1000)
+      this.tableData.list = [
+        {
+          id: 1,
+          title: "还珠格格",
+          createman: "容嬷嬷",
+          instructId: 1,
+          levelId: 1,
+          unitId: 1,
+          createTime: "2020-08-30",
+          endTime: "2021-08-31",
+          receipt: 1,
+          examine: 0,
+          explain: "无",
+          content: "无",
+          isTrue: 1,
+          levelName: "一般",
+          instructName: "扎针",
+          unitName: "大清朝"
+        },
+        {
+          id: 2,
+          title: "剑来",
+          createman: "陈平安",
+          instructId: 2,
+          levelId: 3,
+          unitId: 3,
+          createTime: "2020-08-31",
+          endTime: "2020-09-01",
+          receipt: 0,
+          examine: 1,
+          explain: "无",
+          content: "无",
+          isTrue: 0,
+          levelName: "紧急",
+          instructName: "今天剑来吗",
+          unitName: "浩然天下"
+        },
+        {
+          id: 2,
+          title: "明侦",
+          createman: "芳心纵火犯",
+          instructId: 2,
+          levelId: 3,
+          unitId: 3,
+          createTime: "2020-11-4",
+          endTime: "2022-11-01",
+          receipt: 0,
+          examine: 1,
+          explain: "无",
+          content: "无",
+          isTrue: 0,
+          levelName: "紧急",
+          instructName: "姓甄的",
+          unitName: "芒果TV"
+        }
+      ]
+      // console.log(this.tableData.list);
+      this.cache = this.tableData.list.map(item => ({ ...item })); //使用map将tabData.list数组拷贝给cache
     },
     gotoShuttle () {
       this.$router.push({
@@ -209,18 +222,24 @@ export default {
       }
     },
     openDialog (val) {
-      if (val == 1) {
+      this.dialogVisible = true;
+      // this.$nextTick(() => {
+      if (val.isTrue == 1) {
         this.dialogTitle = '新增';
+        this.checkRow = {};
       } else {
         this.dialogTitle = '修改';
+        this.checkRow = { ...val };
       }
-
-      this.dialogVisible = true;
-      console.log(this.dialogVisible, 'open');
+      // })
     },
-    closeDialog () {
+    closeDialog (key) {
       this.dialogVisible = false;
-      console.log('触发');
+      // this.$nextTick(() => {
+      //   this.tableData.list = this.cache.map(item => ({ ...item }));
+      console.log(this.cache, this.tableData.list[key - 1], '关闭');
+      // })
+      // console.log('触发');
     }
   }
 }

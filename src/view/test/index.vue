@@ -25,7 +25,7 @@ export default {
       test: 1,
       str: '现在是',
       oldStr: Date.now(),
-      english: "asd asdad asd 'asdasd' aasd 'asdqe' adasd asd asdad asd 'asdasd' aasd 'asdqe' adasd asd asdad asd 'asdasd' aasd 'asdqe' adasd ",
+      english: "asd asdad asd 'asdasd' aasd 'asdqe' adasd asd asdad asd 'asdasd' aasd 'asdqe' adasd asd asdad asd 'asdasd' aasd 'asdqe' adasd",
       newEnglish: ""
     }
   },
@@ -35,6 +35,7 @@ export default {
     }
   },
   mounted () {
+    console.log('test');
   },
   methods: {
     getTime () {
