@@ -72,7 +72,7 @@
       :checkRow="checkRow"
       @falseShow="closeDialog"
     ></lyy-dialog>
-    <!-- <lyyTree :chooseNodeId="chooseNodeId"></lyyTree> -->
+    <lyyTree :chooseNodeId="chooseNodeId"></lyyTree>
     <!-- <el-button type="success" round @click="testNum">哈哈</el-button> -->
     <!-- {{ bigSmall }}
     <div class="selectDate">
@@ -88,6 +88,18 @@
       >
       </el-date-picker>
     </div> -->
+    <span>
+      {{ String.fromCharCode(87) }}
+      {{ String.fromCharCode(111) }}
+    </span>
+    <span style="margin: 0 10px">
+      {{ String.fromCharCode(65) }}
+      {{ String.fromCharCode(105) }}
+    </span>
+    <span>
+      {{ String.fromCharCode(78) }}
+      {{ String.fromCharCode(105) }}
+    </span>
     <div class="footer">
       <div>
         <span @click="gotoUpLv">Return</span>
@@ -99,13 +111,13 @@
   </div>
 </template>
 <script>
-// import lyyTree from './lyyTree'
+import lyyTree from './lyyTree'
 import lyyDialog from './lyyDialog'
 
 let timeOptionRange = '';
 export default {
   components: {
-    // lyyTree,
+    lyyTree,
     lyyDialog
   },
   data () {
@@ -142,7 +154,10 @@ export default {
   computed: {
   },
   mounted () {
-    console.log('Element');
+    // console.log('Element');
+    let strCode = '汉字';
+    var nuniCode = '\\u' + strCode.charCodeAt(0).toString(16);
+    console.log(nuniCode, '汉字转Unicode编码');
     this.getDataFromServer();
   },
   methods: {

@@ -23,7 +23,22 @@
 </template>
 
 <script>
+let ajax = new XMLHttpRequest(); // 创建实例
+ajax.open("GET", '', true); // 请求方法GET/POST/其他，''URL请求路径，异步true同步false
+ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); // 设置请求头
+ajax.send(); // 传送接口参数
+ajax.onreadystatechange = function () { // 接口响应回调
+};
+export default {
 
+  data () {
+
+  },
+  methods: {
+
+  }
+
+}
 </script>
 
 <style  scoped>

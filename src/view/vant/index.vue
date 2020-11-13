@@ -26,7 +26,8 @@
       </van-action-sheet>
     </div>
     <form ref="jsForm">
-      上传<input type="file" :value="fileMsg" @change="getFromData($event)" />
+      <span @click="clickInput">上传</span><span>{{ filesName }}</span>
+      <input type="file" style="display: none" @change="getFromData($event)" />
     </form>
   </div>
 </template>
@@ -38,7 +39,9 @@ export default {
       fileList: [],
       dateTime: new Date().getDate(),
       show: false,
-      fileMsg: []
+      fileMsg: [],
+      filesName: '',
+      formData: new FormData()
     }
   },
   components: {},
@@ -60,16 +63,18 @@ export default {
       this.$toast('就你，你点取消了');
     },
     getFromData (e) {
-      let form = e.target.files;
-      console.log(form)
-
-      let formData = new FormData();
-      for (let i = 0; i < form.length; i++) {
-        formData.append('attachment', form[i])
-        console.log(form[i], '111')
+      let formFiles = e.target.files;
+      let form = this.$refs.jsForm[0].files[0];
+      this.filesName = this.filesName + form.name;
+      for (let i = 0; i < formFiles.length; i++) {
+        this.formData.append('attachment', formFiles[i])
+        console.log(formFiles[i], '111')
 
       }
-      console.log(formData)
+      console.log(this.formData.getAll('attachment'))
+    },
+    clickInput () {
+      this.$refs.jsForm[0].click();
     }
   }
 }

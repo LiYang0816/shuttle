@@ -11,6 +11,7 @@ import LyyTree from '../view/element/lyyTree'
 import LyyDialog from '../view/element/lyyDialog'
 import antDesign from '../view/antDesign/index'
 import swordImmortal from '../view/swordImmortal/index'
+import cssPosition from '../view/test/cssPosition'
 
 Vue.use(Router)
 
@@ -71,6 +72,11 @@ let router = new Router({
         path: '/swordImmortal',
         name: 'swordImmortal',
         component: swordImmortal
+      },
+      {
+        path: '/cssPosition',
+        name: 'cssPosition',
+        component: cssPosition
       }
     ]
 })

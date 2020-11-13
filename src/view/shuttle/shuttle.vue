@@ -64,7 +64,17 @@
           </div>
         </div>
       </div>
+      <div style="width: 500px; font-size: 20px; text-align: left">
+        文字效果 <strong> 加粗 </strong> <em> 斜体 </em> <del> 删除线 </del>
+        <ins>下划线</ins>
+      </div>
+      <div style="width: 500px; font-size: 20px; text-align: left">
+        字符实体
+        <span>{{ space }}</span>
+        空格
+      </div>
     </main>
+    <img src="@/assets/icon_fanhui.svg" alt="" />
     <footer class="footer">
       <span @click="goButtonRouter">{{ footerMsg }}</span>
     </footer>
@@ -116,7 +126,8 @@ export default {
         msg: "Script"
       }],
       checkLeftList: [],
-      checkRightList: []
+      checkRightList: [],
+      space: '&nbsp;'
     }
 
   },
@@ -237,6 +248,7 @@ export default {
   font-size: 42px;
 }
 .shuttle {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -253,6 +265,16 @@ export default {
   align-items: center;
   margin-bottom: 10px;
   font-weight: 700;
+}
+.main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.main-content {
+  width: 100%;
 }
 .checkBtn {
   display: flex;
