@@ -12,6 +12,8 @@ import LyyDialog from '../view/element/lyyDialog'
 import antDesign from '../view/antDesign/index'
 import swordImmortal from '../view/swordImmortal/index'
 import cssPosition from '../view/test/cssPosition'
+import test from '../view/test/test'
+import positionSticky from '../view/cssTest/positionSticky'
 
 Vue.use(Router)
 
@@ -77,6 +79,16 @@ let router = new Router({
         path: '/cssPosition',
         name: 'cssPosition',
         component: cssPosition
+      },
+      {
+        path: '/test',
+        name: 'test',
+        component: test
+      },
+      {
+        path: '/positionSticky',
+        name: 'positionSticky',
+        component: positionSticky
       }
     ]
 })

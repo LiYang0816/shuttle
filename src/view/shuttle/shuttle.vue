@@ -57,21 +57,21 @@
             </div>
           </div>
         </div>
-        <div v-else>
+        <div v-else class="dance-flex">
           <span @click="changeChoose">{{ mainMsg.dance }}</span>
           <div>
             <span>{{ chooseTip }}</span>
           </div>
+          <div style="width: 303px; font-size: 20px; text-align: left">
+            文字效果 <strong> 加粗 </strong> <em> 斜体 </em> <del> 删除线 </del>
+            <ins>下划线</ins>
+          </div>
+          <div style="width: 195px; font-size: 20px; text-align: left">
+            字符实体
+            <span>{{ space }}</span>
+            空格
+          </div>
         </div>
-      </div>
-      <div style="width: 500px; font-size: 20px; text-align: left">
-        文字效果 <strong> 加粗 </strong> <em> 斜体 </em> <del> 删除线 </del>
-        <ins>下划线</ins>
-      </div>
-      <div style="width: 500px; font-size: 20px; text-align: left">
-        字符实体
-        <span>{{ space }}</span>
-        空格
       </div>
     </main>
     <img src="@/assets/icon_fanhui.svg" alt="" />
@@ -275,6 +275,12 @@ export default {
 }
 .main-content {
   width: 100%;
+}
+.dance-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .checkBtn {
   display: flex;
