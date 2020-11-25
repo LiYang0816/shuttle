@@ -21,11 +21,17 @@
     >
     </yCell>
     <div @click="inputClick">赋值</div>
+    <div>{{ oldList }}</div>
+    <div>{{ shallowList }}</div>
+    <div>{{ deepList }}</div>
+    <div class="y-button" @click="shallowCopy">浅拷贝</div>
+    <div class="y-button" @click="deepCopy">深拷贝</div>
   </div>
 </template>
 
 <script>
 import yCell from './components/yCell'
+import utils from '../../utils/index'
 
 export default {
   name: '',
@@ -44,14 +50,26 @@ export default {
       // newDrink: '不喝醉，我哭不出来',
       inputValue: '',
       inputInit: '',
-      cssError: ''
+      cssError: '',
+      oldList: [{
+        name: '',
+        emotion: {
+          happy: '',
+          anger: '',
+          sorrow: '',
+          joy: ''
+        }
+      }],
+      shallowList: [],
+      deepList: []
     }
   },
   components: {
     yCell
   },
   mounted () {
-
+    this.shallowList = this.oldList;
+    this.deepList = utils.deepCopy(this.oldList)
   },
   methods: {
     // sliceStrBtn () {
@@ -86,7 +104,15 @@ export default {
       //     </div>`,
       //   type: 'html',
       // });
+    },
+    shallowCopy () {
+      this.shallowList[0].emotion.happy = '囍';
+    },
+    deepCopy () {
+      this.deepList[0].emotion.happy = '囍';
+      // console.log(this.deepList, '深');
     }
+
   }
 }
 </script>
@@ -110,5 +136,13 @@ export default {
 }
 .split-btn {
   position: relative;
+}
+.y-button {
+  width: 80px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <a-table :columns="columns" :data-source="data" bordered>
+  <!-- <a-table :columns="columns" :data-source="data" bordered>
     <template
       v-for="col in ['name', 'age', 'address']"
       :slot="col"
@@ -34,7 +34,21 @@
         </span>
       </div>
     </template>
-  </a-table>
+  </a-table> -->
+  <div>
+    <a-select
+      mode="tags"
+      :size="size"
+      placeholder="Please select"
+      :default-value="['a1', 'b2']"
+      style="width: 200px"
+      @change="handleChange"
+    >
+      <a-select-option v-for="i in 25" :key="(i + 9).toString(36) + i">
+        {{ (i + 9).toString(36) + i }}
+      </a-select-option>
+    </a-select>
+  </div>
 </template>
 <script>
 const columns = [
@@ -79,17 +93,27 @@ export default {
       data,
       columns,
       editingKey: '',
+      size: 'default',
     };
   },
+  mounted () {
+    console.log((46).toString(36));
+  },
   methods: {
-    handleChange (value, key, column) {
-      const newData = [...this.data];
-      const target = newData.filter(item => key === item.key)[0];
-      if (target) {
-        target[column] = value;
-        this.data = newData;
-      }
+    handleChange (value) {
+      console.log(`Selected: ${value}`);
     },
+    popupScroll () {
+      console.log('popupScroll');
+    },
+    // handleChange (value, key, column) {
+    //   const newData = [...this.data];
+    //   const target = newData.filter(item => key === item.key)[0];
+    //   if (target) {
+    //     target[column] = value;
+    //     this.data = newData;
+    //   }
+    // },
     edit (key) {
       const newData = [...this.data];
       const target = newData.filter(item => key === item.key)[0];

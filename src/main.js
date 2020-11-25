@@ -9,6 +9,7 @@ import 'vant/lib/index.css';
 // import Clipboard from 'clipboard';
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
+import store from './store/index'
 
 Vue.use(Vant);
 Vue.use(Element);
@@ -19,6 +20,7 @@ Vue.prototype.axios = Axios;
 Vue.config.productionTip = false;
 
 new Vue({
+  store,
   router,
   render: h => h(App),
 }).$mount('#app')

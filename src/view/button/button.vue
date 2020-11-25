@@ -2,19 +2,36 @@
   <div id="button">
     <div class="drag-test">
       <div class="drag">
-        <span id="drag-ele" draggable="true" @dragstart="whenDragStart($event)">别拽我</span>
+        <span id="drag-ele" draggable="true" @dragstart="whenDragStart($event)"
+          >别拽我</span
+        >
       </div>
       <div
         class="box"
         @drop.prevent="eleDrop($event)"
         @dragover="dragOverPrevent($event)"
-      >{{canTry}}</div>
-    </div>
-    <div class="checkerboard">
-      <div class="piece" v-for="(item,index) in list" :key="index" @click="clickPlay(item)">
-        <span>{{item.content}}</span>
+      >
+        {{ canTry }}
       </div>
     </div>
+    <div class="checkerboard">
+      <div
+        class="piece"
+        v-for="(item, index) in list"
+        :key="index"
+        @click="clickPlay(item)"
+      >
+        <span>{{ item.content }}</span>
+      </div>
+    </div>
+    <van-dialog
+      v-model="showWin"
+      title="胜利"
+      show-cancel-button
+      @confirm="winthen"
+    >
+      <div>{{ whoWin }}棋胜利</div>
+    </van-dialog>
     <van-button plain color="#7232dd" round @click="clickme">点我</van-button>
     <div class="footer">
       <div>
@@ -32,52 +49,7 @@ export default {
   data () {
     return {
       canTry: '放进来吧',
-      list: [
-        {
-          id: 1,
-          canClick: true,
-          content: ''
-        },
-        {
-          id: 2,
-          canClick: true,
-          content: ''
-        },
-        {
-          id: 3,
-          canClick: true,
-          content: ''
-        },
-        {
-          id: 4,
-          canClick: true,
-          content: ''
-        },
-        {
-          id: 5,
-          canClick: true,
-          content: ''
-        },
-        {
-          id: 6,
-          canClick: true,
-          content: ''
-        },
-        {
-          id: 7,
-          canClick: true,
-          content: ''
-        },
-        {
-          id: 8,
-          canClick: true,
-          content: ''
-        },
-        {
-          id: 9,
-          canClick: true,
-          content: ''
-        }],
+      list: [],
       counts: 1,
       winner: [
         [0, 1, 2],
@@ -91,15 +63,20 @@ export default {
       ],
       Xresult: [],
       Oresult: [],
-      winToF: false
+      winToF: false,
+      showWin: false,
+      whoWin: ''
     }
 
   },
   mounted () {
+    this.list = this.$store.state.button.pieceList.map(obj => (
+      { ...obj }
+    )); // 深拷贝 
   },
   methods: {
     whenDragStart (e) {
-      console.log(e, '拖动开始事件')
+      // console.log(e, '拖动开始事件')
       e.dataTransfer.setData("Text", e.target.id);
     },
     eleDrop (e) {
@@ -123,7 +100,7 @@ export default {
       if (ele.canClick && this.counts < 10 && !this.winToF) {
         if (this.counts % 2 != 0 && this.list[ele.id - 1].content == '') {
           this.list[ele.id - 1].content = 'X';
-          console.log(this.counts, "下X棋时");
+          // console.log(this.counts, "下X棋时");
           if (this.counts > 4 && this.list[ele.id - 1].content == 'X') {
             this.list.forEach((m, i) => {
               if (m.content == 'X' && !this.Xresult.includes(i)) {
@@ -135,7 +112,7 @@ export default {
           this.counts++;
         } else if (this.counts % 2 == 0 && this.list[ele.id - 1].content == '') {
           this.list[ele.id - 1].content = 'O';
-          console.log(this.counts, "下O棋时");
+          // console.log(this.counts, "下O棋时");
           if (this.counts > 5 && this.list[ele.id - 1].content == 'O') {
             this.list.forEach((m, i) => {
               if (m.content == 'O' && !this.Oresult.includes(i)) {
@@ -154,7 +131,9 @@ export default {
           this.winner.forEach(arr => {
             if (arr.sort().toString() == this.Xresult.sort().toString()) {
               setTimeout(() => {
-                alert('X棋赢了');
+                // this.$toast('X棋赢了');
+                this.whoWin = 'X';
+                this.showWin = true;
               }, 100)
               this.winToF = true;
             }
@@ -166,7 +145,9 @@ export default {
               this.winner.forEach(arr => {
                 if (arr.sort().toString() == ele.sort().toString()) {
                   setTimeout(() => {
-                    alert('X棋赢了');
+                    // this.$toast('X棋赢了');
+                    this.whoWin = 'X';
+                    this.showWin = true;
                   }, 100)
                   this.winToF = true;
                 }
@@ -179,7 +160,9 @@ export default {
           this.winner.forEach(arr => {
             if (arr.sort().toString() == this.Oresult.sort().toString()) {
               setTimeout(() => {
-                alert('O棋赢了');
+                // this.$toast('O棋赢了');
+                this.whoWin = 'O';
+                this.showWin = true;
               }, 0)
             }
           })
@@ -190,7 +173,9 @@ export default {
               this.winner.forEach(arr => {
                 if (arr.sort().toString() == ele.sort().toString()) {
                   setTimeout(() => {
-                    alert('O棋赢了');
+                    // this.$toast('O棋赢了');
+                    this.whoWin = 'O';
+                    this.showWin = true;
                   }, 0)
                 }
               })
@@ -199,8 +184,17 @@ export default {
         }
       }
     },
+    winthen () {
+      this.Xresult = [];
+      this.Oresult = [];
+      this.list = this.$store.state.button.pieceList.map(obj => (
+        { ...obj }
+      ));
+      // console.log(this.$store.state.button.pieceList, 'this=------');
+      this.winToF = false;
+      this.counts = 1;
+    },
     clickme () {
-      console.log(this, 'this=------');
       this.$toast('哈哈');
     }
   }

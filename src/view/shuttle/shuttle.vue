@@ -135,7 +135,16 @@ export default {
     this.changeChoose();
   },
   mounted () {
-    console.log('shuttle');
+    // console.log('shuttle');
+    console.log('若想要实现深拷贝，就将要拷贝的数组循环拆分到最后一层，将其转化成基础数据类型赋值，即可实现深拷贝');
+    console.log('setTimeout有最小时间间隔限制，HTML5标准为4ms，小于4ms按照4ms处理，但是每个浏览器实现的最小间隔都不同。setInterval的最短间隔时间是10毫秒，也就是说，小于10毫秒的时间间隔会被调整到10毫秒');
+    // setTimeout(() => {
+    //   console.log('先还是后？');
+    // });
+    // setTimeout(() => {
+    //   console.log('后还是先？');
+    // });
+    console.log('创建了一个dev分支');
   },
   methods: {
     changeChoose () {
@@ -150,10 +159,10 @@ export default {
       }
     },
     goRight () {
-      console.log("左侧选中的值的长度", this.checkLeftList.length)
+      // console.log("左侧选中的值的长度", this.checkLeftList.length)
       if (this.checkLeftList.length > 0) {
         this.checkLeftList.forEach(ele => {
-          console.log("左穿右穿梭值", ele);
+          // console.log("左穿右穿梭值", ele);
           this.Loser.push({
             i: false,
             msg: ele
@@ -162,7 +171,7 @@ export default {
             if (elem.i == true && elem.msg == ele) {
               this.Winner.splice(i, 1)
             }
-            console.log(elem, i, "参数")
+            // console.log(elem, i, "参数")
           })
         });
         this.checkLeftList = [];
@@ -170,10 +179,10 @@ export default {
 
     },
     goLeft () {
-      console.log("右侧选中的值的长度", this.checkLeftList.length)
+      // console.log("右侧选中的值的长度", this.checkLeftList.length)
       if (this.checkRightList.length > 0) {
         this.checkRightList.forEach(ele => {
-          console.log("右穿左穿梭值", ele);
+          // console.log("右穿左穿梭值", ele);
           this.Winner.push({
             i: false,
             msg: ele
@@ -182,11 +191,11 @@ export default {
             if (elem.i == true && elem.msg == ele) {
               this.Loser.splice(i, 1)
             }
-            console.log(elem, i, "参数")
+            // console.log(elem, i, "参数")
           })
         });
         this.initCheck();
-        console.log(this.checkRightList, "msgmsgmsg")
+        // console.log(this.checkRightList, "msgmsgmsg")
       }
     },
     initCheck () {
@@ -202,7 +211,7 @@ export default {
           this.checkLeftList.splice(this.checkLeftList.indexOf(v.msg), 1);
         }
       }
-      console.log("左侧选中的值", this.checkLeftList);
+      // console.log("左侧选中的值", this.checkLeftList);
 
     },
     rightCheck (v) {
@@ -214,7 +223,7 @@ export default {
           this.checkRightList.splice(this.checkRightList.indexOf(v.msg), 1);
         }
       }
-      console.log("右侧选中的值", this.checkRightList);
+      // console.log("右侧选中的值", this.checkRightList);
     },
     goButtonRouter () {
       this.$router.push({
