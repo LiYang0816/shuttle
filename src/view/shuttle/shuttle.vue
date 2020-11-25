@@ -146,7 +146,6 @@ export default {
     // });
     console.log('创建了一个dev分支');
     console.log('现在在master上写的');
-    console.log('在master上写dev里能看到');
   },
   methods: {
     changeChoose () {
