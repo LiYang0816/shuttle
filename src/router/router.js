@@ -14,6 +14,7 @@ import swordImmortal from '../view/swordImmortal/index'
 import cssPosition from '../view/test/cssPosition'
 import test from '../view/test/test'
 import positionSticky from '../view/cssTest/positionSticky'
+import cssSticky from '../view/test/cssSticky'
 
 Vue.use(Router)
 
@@ -89,7 +90,13 @@ let router = new Router({
         path: '/positionSticky',
         name: 'positionSticky',
         component: positionSticky
+      },
+      {
+        path: '/cssSticky',
+        name: 'cssSticky',
+        component: cssSticky
       }
+
     ]
 })
 

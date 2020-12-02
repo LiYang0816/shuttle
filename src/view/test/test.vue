@@ -26,12 +26,15 @@
     <div>{{ deepList }}</div>
     <div class="y-button" @click="shallowCopy">浅拷贝</div>
     <div class="y-button" @click="deepCopy">深拷贝</div>
+    <div>{{ bubbleList }}</div>
+    <div class="y-button" @click="chooseFun">冒泡排序</div>
   </div>
 </template>
 
 <script>
 import yCell from './components/yCell'
 import utils from '../../utils/index'
+import CryptoJS from 'crypto-js/crypto-js'; // 加密
 
 export default {
   name: '',
@@ -48,6 +51,7 @@ export default {
       ],
       // newMusic: '爱在一季盛夏之后，只剩下残骸，一个人孤独的等待，等待着夜幕降下来',
       // newDrink: '不喝醉，我哭不出来',
+      // newLoveThink: '爱情不过是一个人一厢情愿，一个人理所应当。'
       inputValue: '',
       inputInit: '',
       cssError: '',
@@ -61,7 +65,39 @@ export default {
         }
       }],
       shallowList: [],
-      deepList: []
+      deepList: [],
+      bubbleList: [
+        {
+          age: 16,
+          name: 'xw'
+        }, {
+          age: 6, name: 'xwl'
+        }, {
+          age: 7, name: 'xw1'
+        }, {
+          age: 3, name: 'dxw'
+        }, {
+          age: 2, name: 'jxw'
+        }, {
+          age: 18, name: 'xdw'
+        }, {
+          age: 11, name: 'xqw'
+        }, {
+          age: 0, name: 'xkw'
+        }, {
+          age: -1, name: 'xuw'
+        }, {
+          age: 22, name: 'x7w'
+        }, {
+          age: '-', name: 'x15w'
+        }, {
+          age: 9, name: 'xwkk'
+        }, {
+          age: 17, name: 'x12w'
+        }],
+      testObj: {
+        age: 12, name: 'x66w'
+      }
     }
   },
   components: {
@@ -111,8 +147,35 @@ export default {
     deepCopy () {
       this.deepList[0].emotion.happy = '囍';
       // console.log(this.deepList, '深');
-    }
+    },
+    // 加密
+    Encrypt (word) {
+      // 测试环境
+      let key = '388c056055de477c819a67f00d6fb0a0';
+      let iv = '1597531478963258';
+      if (process.env.NODE_ENV === 'production') {
+        // 生产
+        key = '388c056055de477c819a67f00d6fb0a0';
+        iv = '1597531478963258';
+      }
+      // 生产
+      // let key = 'EWYTOINTBULTERMS';
+      // let iv = '3128375146789625';
 
+      key = CryptoJS.enc.Utf8.parse(key);
+      iv = CryptoJS.enc.Utf8.parse(iv);
+
+      let srcs = CryptoJS.enc.Utf8.parse(word);
+      let encrypted = CryptoJS.AES.encrypt(srcs, key, {
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+      });
+      return CryptoJS.enc.Base64.stringify(encrypted.ciphertext);
+    },
+    chooseFun () {
+      this.bubbleList = utils.objBubbleSort(this.bubbleList, 'age');
+    }
   }
 }
 </script>

@@ -39,6 +39,20 @@ let utils = {
       }
     }
     return obj;
+  },
+  // 对象的冒泡排序 arrc排序对象; obj为按某一字段排序;
+  objBubbleSort (arr, obj) {
+    let temp;
+    for (let i = 0; i < arr.length - 1; i++) {
+      for (let j = i + 1; j < arr.length; j++) {
+        if (isNaN(arr[i][obj]) || arr[i][obj] > arr[j][obj]) {
+          temp = { ...arr[i] };
+          arr[i] = { ...arr[j] };
+          arr[j] = { ...temp };
+        }
+      }
+    }
+    return [...arr];
   }
 };
 
