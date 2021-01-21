@@ -33,6 +33,9 @@
       <div>{{ whoWin }}棋胜利</div>
     </van-dialog>
     <van-button plain color="#7232dd" round @click="clickme">点我</van-button>
+    <div>
+      请输入 <input type="text" v-model="vmodel" @input="vmodelInput" />
+    </div>
     <div class="footer">
       <div>
         <span @click="gotoUpLv">Return</span>
@@ -45,6 +48,7 @@
 </template>
 <script>
 import utils from '../../utils/index.js'
+import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -65,16 +69,25 @@ export default {
       Oresult: [],
       winToF: false,
       showWin: false,
-      whoWin: ''
+      whoWin: '',
+      vmodel: ''
     }
 
   },
+  computed: {
+  },
   mounted () {
+    this.vmodel = this.$store.state.button.vmodel;
     this.list = this.$store.state.button.pieceList.map(obj => (
       { ...obj }
     )); // 深拷贝 
   },
   methods: {
+    ...mapMutations(['VMODEL']),
+    vmodelInput () {
+      this.VMODEL('button/VMODEL', this.vmodel);
+      console.log(this.vmodel, '哈哈', this.$store.state.button.vmodel, '哈哈')
+    },
     whenDragStart (e) {
       // console.log(e, '拖动开始事件')
       e.dataTransfer.setData("Text", e.target.id);

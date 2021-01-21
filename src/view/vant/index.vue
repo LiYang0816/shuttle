@@ -29,10 +29,22 @@
       <span @click="clickInput">上传</span><span>{{ filesName }}</span>
       <input type="file" style="display: none" @change="getFromData($event)" />
     </form>
+    <!-- <van-picker :columns="currentDate" title="自定义列排序">
+      <template #option="item"> {{ item.foo }} </template>
+    </van-picker>
+    <van-datetime-picker v-model="currentDate" type="year-month">
+      <template #option="item">{{ item }} {{ 111 }} </template>
+    </van-datetime-picker>
+    <van-button type="primary" @click="ctest">点击</van-button>
+    <van-loading /> -->
+    <!-- 识别 \n 换行符 -->
+    <div style="white-space: pre-line">{{ filterHtml() }}</div>
+    <div>{{ stringHtml }}</div>
   </div>
 </template>
 
 <script>
+// import { Toast } from 'vant'
 export default {
   data () {
     return {
@@ -41,11 +53,21 @@ export default {
       show: false,
       fileMsg: [],
       filesName: '',
-      formData: new FormData()
+      formData: new FormData(),
+      minDate: new Date(2020),
+      maxDate: new Date(2025),
+      currentDate: [{ foo: 1, bar: 2 }, { foo: 2, bar: 2 }],
+      toast: null,
+      stringHtml: `Hello\nworld`
     }
   },
   components: {},
-  mounted () { },
+  mounted () {
+    // this.toast = Toast.loading({
+    //   duration: 0, // 持续展示 toast
+    //   // forbidClick: true
+    // });
+  },
   methods: {
     afterRead (file) {
       // 此时可以自行将文件上传至服务器
@@ -75,6 +97,13 @@ export default {
     },
     clickInput () {
       this.$refs.jsForm[0].click();
+    },
+    ctest () {
+      console.log(this.$loading);
+      // this.toast.clear();
+    },
+    filterHtml () {
+      return `Hello\nworld`;
     }
   }
 }

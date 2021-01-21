@@ -43,7 +43,8 @@ const state = () => ({
     id: 9,
     canClick: true,
     content: ''
-  }]
+  }],
+  vmodel: ''
 })
 
 // getters 就像是过滤，将结果转成想要的，如 [a,b,c] => [aa,bb,cc]
@@ -57,8 +58,11 @@ const actions = {
 // mutations 调用状态
 const mutations = {
   pieceList (state, res) {
-    console.log(res, 'store');
+    // console.log(res, 'store');
     return state.pieceList = [...res];
+  },
+  VMODEL (state, res) {
+    return state.vmodel = res;
   }
 }
 

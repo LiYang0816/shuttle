@@ -13,15 +13,22 @@
         ref="dialogForm"
         :rules="rules"
       >
+        <el-form-item label="切换" style="width: 300px">
+          <el-radio-group v-model="radio">
+            <el-radio :label="3">来来来</el-radio>
+            <el-radio :label="6">去去去</el-radio>
+          </el-radio-group>
+        </el-form-item>
         <el-form-item
           label="名称"
           required
           prop="createman"
           style="width: 400px"
+          v-if="radio == 3"
         >
           <el-input v-model="checkRow.createman" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="标题" style="width: 300px">
+        <el-form-item label="标题" style="width: 300px" v-if="radio == 6">
           <el-input v-model="checkRow.title" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -47,22 +54,21 @@ export default {
       cache: {},
       rules: {
 
-      }
+      },
+      radio: ''
     }
   },
   mounted () {
   },
   methods: {
     dialogFormVisible () {
-      console.log(this.checkRow, '1')
-      this.$refs.dialogForm.resetFields();
+      console.log(this.form, this.checkRow, '1')
+      // this.$refs.dialogForm.resetFields();
       this.dialogShow = false;
-      this.$emit('falseShow', this.checkRow.id);
+      this.$emit('falseShow');
     },
     openDialog () {
-
       // this.form = { ...this.checkRow };
-
     }
   },
   watch: {

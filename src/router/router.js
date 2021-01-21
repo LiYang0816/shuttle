@@ -15,6 +15,7 @@ import cssPosition from '../view/test/cssPosition'
 import test from '../view/test/test'
 import positionSticky from '../view/cssTest/positionSticky'
 import cssSticky from '../view/test/cssSticky'
+import orderImport from '../view/orderImport/index'
 
 Vue.use(Router)
 
@@ -95,6 +96,11 @@ let router = new Router({
         path: '/cssSticky',
         name: 'cssSticky',
         component: cssSticky
+      },
+      {
+        path: '/orderImport',
+        name: 'orderImport',
+        component: orderImport
       }
 
     ]

@@ -47,7 +47,6 @@ export default {
 
       ],
       newSplitStr: [
-
       ],
       // newMusic: '爱在一季盛夏之后，只剩下残骸，一个人孤独的等待，等待着夜幕降下来',
       // newDrink: '不喝醉，我哭不出来',
@@ -97,7 +96,15 @@ export default {
         }],
       testObj: {
         age: 12, name: 'x66w'
-      }
+      },
+      numList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      iconList: [
+        { code: 'BLC00001', name: '圆通快递', list: [{ code: 'BLC000011', name: '圆通快递子', list: [{ code: 'BLC0000111', name: '圆通快递孙' }] }] },
+        { code: 'BLC00002', name: '申通快递', list: [{ code: 'BLC000011', name: '圆通快递子', list: [{ code: 'BLC0000111', name: '圆通快递孙' }] }] },
+        { code: 'BLC00003', name: '中通快递', list: [{ code: 'BLC000011', name: '圆通快递子', list: [{ code: 'BLC0000111', name: '圆通快递孙' }] }] },
+        { code: 'BLC00004', name: '韵达快递', list: [{ code: 'BLC000011', name: '圆通快递子', list: [{ code: 'BLC0000111', name: '圆通快递孙' }] }] },
+        { code: 'BLC00005', name: '百世快递', list: [{ code: 'BLC000011', name: '圆通快递子', list: [{ code: 'BLC0000111', name: '圆通快递孙' }] }] }
+      ],
     }
   },
   components: {
@@ -105,7 +112,9 @@ export default {
   },
   mounted () {
     this.shallowList = this.oldList;
-    this.deepList = utils.deepCopy(this.oldList)
+    this.deepList = utils.deepCopy(this.oldList);
+    this.randomList();
+    this.iconListTest();
   },
   methods: {
     // sliceStrBtn () {
@@ -117,6 +126,7 @@ export default {
     // spliceArrBtn () {
     //   this.newSpliceArr = this.spliceArr.splice(0, 1); // 改变数组,原数组变为裁剪后的剩余元素组成的数组；返回值为裁剪的元素组成的数组。
     // },
+    // 积攒了一年的暗恋，在现实面前，瞬间被瓦解。
     inputGive () {
       console.log(this.inputValue, '赋值');
     },
@@ -175,6 +185,47 @@ export default {
     },
     chooseFun () {
       this.bubbleList = utils.objBubbleSort(this.bubbleList, 'age');
+    },
+    randomList () {
+      let newList = [];
+      while (newList.length < 4) {
+        let newStr = '';
+        while (newStr.length < 8) {
+          newStr = [...new Set(newStr + this.numList[Math.floor(Math.random() * 10)])].join('')
+        }
+        newList.push(newStr);
+        newList = [...new Set(newList)];
+      }
+    },
+    iconListTest () {
+      let menu = ['BLC0000111', 'BLC00003'];
+      let showRoute = [];
+      let routes = this.iconList;
+      for (let i = 0; i < routes.length; i++) {
+        // if (!routes[i].hidden) {
+        // return routes[i].list || [];
+        routes[i].list.forEach((item, index) => {
+          showRoute.push({
+            code: item.code,
+            list: []
+          });
+          if (item.list) {
+            for (let j = 0; j < item.list.length; j++) {
+              if (!item.list[j].hidden) {
+                if (menu.includes(item.list[j].code)) {
+                  showRoute[index].list.push({ // 将有显示权限的菜单，push到showRoute数组里
+                    code: item.list[j].code,
+                    list: []
+                  });
+                }
+              }
+            }
+          }
+        });
+        console.log(showRoute, 'showRoute');
+        return showRoute;
+        // }
+      }
     }
   }
 }

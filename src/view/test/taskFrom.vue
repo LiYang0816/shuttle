@@ -17,7 +17,7 @@
     </div>
     <div>
       <span>第三个div的第一个子span</span>
-      <span>第三个div的第二个子span</span>
+      <span>第三个div的第二个子span</span>``
     </div>
   </div>
 </template>
