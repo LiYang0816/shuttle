@@ -1,43 +1,39 @@
 <template>
-  <div class="lyyDialog">
-    <el-dialog
-      :title="dialogTitle"
-      :visible.sync="dialogShow"
-      width="30%"
-      :before-close="dialogFormVisible"
-      @open="openDialog"
+  <!-- <div class="lyyDialog"> -->
+  <el-dialog
+    :title="dialogTitle"
+    :visible.sync="dialogShow"
+    width="30%"
+    :before-close="dialogFormVisible"
+    :destroy-on-close="true"
+    @open="openDialog"
+  >
+    <el-form
+      :model="checkRow"
+      label-width="80px"
+      ref="dialogForm"
+      v-if="dialogShow"
     >
-      <el-form
-        :model="checkRow"
-        label-width="80px"
-        ref="dialogForm"
-        :rules="rules"
-      >
-        <el-form-item label="切换" style="width: 300px">
+      <!-- :rules="rules" -->
+      <!-- <el-form-item label="切换" style="width: 300px">
           <el-radio-group v-model="radio">
             <el-radio :label="3">来来来</el-radio>
             <el-radio :label="6">去去去</el-radio>
           </el-radio-group>
-        </el-form-item>
-        <el-form-item
-          label="名称"
-          required
-          prop="createman"
-          style="width: 400px"
-          v-if="radio == 3"
-        >
-          <el-input v-model="checkRow.createman" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="标题" style="width: 300px" v-if="radio == 6">
-          <el-input v-model="checkRow.title" autocomplete="off"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible">确 定</el-button>
-      </div>
-    </el-dialog>
-  </div>
+        </el-form-item> -->
+      <el-form-item label="名称" required style="width: 400px">
+        <el-input v-model="checkRow.createman" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="标题" style="width: 300px">
+        <el-input v-model="checkRow.title" autocomplete="off"></el-input>
+      </el-form-item>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="dialogFormVisible">取 消</el-button>
+      <el-button type="primary" @click="dialogFormVisible">确 定</el-button>
+    </div>
+  </el-dialog>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -52,9 +48,9 @@ export default {
       },
       dialogShow: false,
       cache: {},
-      rules: {
+      // rules: {
 
-      },
+      // },
       radio: ''
     }
   },

@@ -153,7 +153,60 @@ export default {
   data () {
     return {
       tableData: {
-        list: []
+        list: [{
+          id: 1,
+          title: "还珠格格",
+          createman: "容嬷嬷",
+          instructId: 1,
+          levelId: 1,
+          unitId: 1,
+          createTime: "2020-08-30",
+          endTime: "2021-08-31",
+          receipt: 1,
+          examine: 0,
+          explain: "无",
+          content: "无",
+          isTrue: 1,
+          levelName: "一般",
+          instructName: "扎针",
+          unitName: "大清朝"
+        },
+        {
+          id: 2,
+          title: "剑来",
+          createman: "陈平安",
+          instructId: 2,
+          levelId: 3,
+          unitId: 3,
+          createTime: "2020-08-31",
+          endTime: "2020-09-01",
+          receipt: 0,
+          examine: 1,
+          explain: "无",
+          content: "无",
+          isTrue: 0,
+          levelName: "紧急",
+          instructName: "今天剑来吗",
+          unitName: "浩然天下"
+        },
+        {
+          id: 2,
+          title: "明侦",
+          createman: "芳心纵火犯",
+          instructId: 2,
+          levelId: 3,
+          unitId: 3,
+          createTime: "2020-11-4",
+          endTime: "2022-11-01",
+          receipt: 0,
+          examine: 1,
+          explain: "无",
+          content: "无",
+          isTrue: 0,
+          levelName: "紧急",
+          instructName: "姓甄的",
+          unitName: "芒果TV"
+        }]
       },
       chooseNodeId: '',
       dialogVisible: false,
@@ -414,7 +467,8 @@ export default {
         //   resolve(nodes);
         //   // }, 1000);
         // }
-      }
+      },
+      tryFreezelist: []
     }
   },
   computed: {
@@ -425,67 +479,71 @@ export default {
     var nuniCode = '\\u' + strCode.charCodeAt(0).toString(16);
     console.log(nuniCode, '汉字转Unicode编码');
     this.getDataFromServer();
+    this.useLeeCode([2, 7, 11, 15], 9);
+    this.tryFreeze();
+    this.propertyTry();
+    this.a__or__a();
   },
   methods: {
     getDataFromServer () { // 模仿调用接口
-      this.tableData.list = [
-        {
-          id: 1,
-          title: "还珠格格",
-          createman: "容嬷嬷",
-          instructId: 1,
-          levelId: 1,
-          unitId: 1,
-          createTime: "2020-08-30",
-          endTime: "2021-08-31",
-          receipt: 1,
-          examine: 0,
-          explain: "无",
-          content: "无",
-          isTrue: 1,
-          levelName: "一般",
-          instructName: "扎针",
-          unitName: "大清朝"
-        },
-        {
-          id: 2,
-          title: "剑来",
-          createman: "陈平安",
-          instructId: 2,
-          levelId: 3,
-          unitId: 3,
-          createTime: "2020-08-31",
-          endTime: "2020-09-01",
-          receipt: 0,
-          examine: 1,
-          explain: "无",
-          content: "无",
-          isTrue: 0,
-          levelName: "紧急",
-          instructName: "今天剑来吗",
-          unitName: "浩然天下"
-        },
-        {
-          id: 2,
-          title: "明侦",
-          createman: "芳心纵火犯",
-          instructId: 2,
-          levelId: 3,
-          unitId: 3,
-          createTime: "2020-11-4",
-          endTime: "2022-11-01",
-          receipt: 0,
-          examine: 1,
-          explain: "无",
-          content: "无",
-          isTrue: 0,
-          levelName: "紧急",
-          instructName: "姓甄的",
-          unitName: "芒果TV"
-        }
-      ]
+      // this.tableData.list = [
+      //   {
+      //     id: 1,
+      //     title: "还珠格格",
+      //     createman: "容嬷嬷",
+      //     instructId: 1,
+      //     levelId: 1,
+      //     unitId: 1,
+      //     createTime: "2020-08-30",
+      //     endTime: "2021-08-31",
+      //     receipt: 1,
+      //     examine: 0,
+      //     explain: "无",
+      //     content: "无",
+      //     isTrue: 1,
+      //     levelName: "一般",
+      //     instructName: "扎针",
+      //     unitName: "大清朝"
+      //   },
+      //   {
+      //     id: 2,
+      //     title: "剑来",
+      //     createman: "陈平安",
+      //     instructId: 2,
+      //     levelId: 3,
+      //     unitId: 3,
+      //     createTime: "2020-08-31",
+      //     endTime: "2020-09-01",
+      //     receipt: 0,
+      //     examine: 1,
+      //     explain: "无",
+      //     content: "无",
+      //     isTrue: 0,
+      //     levelName: "紧急",
+      //     instructName: "今天剑来吗",
+      //     unitName: "浩然天下"
+      //   },
+      //   {
+      //     id: 2,
+      //     title: "明侦",
+      //     createman: "芳心纵火犯",
+      //     instructId: 2,
+      //     levelId: 3,
+      //     unitId: 3,
+      //     createTime: "2020-11-4",
+      //     endTime: "2022-11-01",
+      //     receipt: 0,
+      //     examine: 1,
+      //     explain: "无",
+      //     content: "无",
+      //     isTrue: 0,
+      //     levelName: "紧急",
+      //     instructName: "姓甄的",
+      //     unitName: "芒果TV"
+      //   }
+      // ]
       // console.log(this.tableData.list);
-      this.cache = this.tableData.list.map(item => ({ ...item })); //使用map将tabData.list数组拷贝给cache
+      // this.cache = this.tableData.list.map(item => ({ ...item })); //使用map将tabData.list数组拷贝给cache
     },
     gotoShuttle () {
       this.$router.push({
@@ -518,9 +576,9 @@ export default {
       this.dialogVisible = false;
       // this.$nextTick(() => {
       //   this.tableData.list = this.cache.map(item => ({ ...item }));
-      console.log(this.cache, this.tableData.list[key - 1], '关闭');
+      // console.log(this.cache, this.tableData.list[key - 1], '关闭');
       // })
-      // console.log('触发');
+      console.log('触发', key);
     },
     newBtn () {
       this.checkRow = {};
@@ -540,6 +598,54 @@ export default {
     giveValue () {
       // this.district = ['0'];
       this.province = ['zhinan', 'shejiyuanze'];
+    },
+    // 两数相加等于目标值
+    useLeeCode (nums, target) {
+      let numA = null;
+      let numB = null;
+      for (let i = 0; i < nums.length; i++) {
+        for (let j = 0; j < nums.length; j++) {
+          if (i != j) {
+            let res = nums[i] + nums[j];
+            if (res == target) {
+              numA = i;
+              numB = j;
+              console.log(i, j, 'res');
+              return [numA, numB];
+            }
+          }
+        }
+      }
+    },
+    tryFreeze () { // 冻住数组
+      this.tryFreezelist = [{ a: 1 }, { a: 2 }, { a: 3 }];
+      Object.freeze(this.tryFreezelist);
+      this.tryFreezelistFor();
+    },
+    tryFreezelistFor () {
+      let list = this.tryFreezelist;
+      list.forEach(element => {
+        console.log(element);
+      });
+    },
+    propertyTry () {
+      let fun = function (name) {
+        this.name = name;
+      }
+      fun.prototype.age = 16; // 为fun函数的原型对象添加age属性，该属性fun无法访问，fun的实例对象可以访问
+      let f1 = new fun('hh'); // f1为构造函数fun的实例对象，其继承了fun的属性和方法，并可以访问fun的原型对象的属性和方法
+      console.log(f1, 'f1');
+      console.log(f1.name, 'name');
+      console.log(f1.age, 'age');
+      console.log(f1.__proto__.age, 'f1_P_Age'); // f1.__proto__为对象f1的父构造函数fun的原型对象，即fun.prototype
+      console.log(fun.name, 'funName');
+      console.log(fun.age, 'funAge');
+    },
+    a__or__a () {
+      var a = 1;
+      console.log(a++, 'a++');
+      console.log(++a, '++a');
+      console.log(a, 'a');
     }
   }
 }

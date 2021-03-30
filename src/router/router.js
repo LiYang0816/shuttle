@@ -16,6 +16,8 @@ import test from '../view/test/test'
 import positionSticky from '../view/cssTest/positionSticky'
 import cssSticky from '../view/test/cssSticky'
 import orderImport from '../view/orderImport/index'
+import returnChange from '../view/returnChange/index'
+import rcModify from '../view/returnChange/components/modify'
 
 Vue.use(Router)
 
@@ -101,6 +103,22 @@ let router = new Router({
         path: '/orderImport',
         name: 'orderImport',
         component: orderImport
+      },
+      {
+        path: '/returnChange',
+        name: 'returnChange',
+        component: returnChange,
+        meta:{
+          title:'退回更址打印'
+        }
+      },
+      {
+        path: '/rcModify',
+        name: 'rcModify',
+        component: rcModify,
+        meta:{
+          title:'退更打印'
+        }
       }
 
     ]

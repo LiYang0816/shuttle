@@ -14,6 +14,11 @@ Vue.use(Element);
 Vue.use(Vant);
 Vue.use(Antd);
 // Vue.use(Clipboard);
+Vue.directive('title', {
+  inserted (el, bind) {
+    document.title = bind.value;
+  }
+});
 console.log(process.env.VUE_APP_URL, process.env, 'process.env.VUE_APP_URL')
 Vue.prototype.axios = Axios;
 Vue.config.productionTip = false;

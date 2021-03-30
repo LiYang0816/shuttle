@@ -135,7 +135,6 @@ export default {
     this.changeChoose();
   },
   mounted () {
-    // console.log('shuttle');
     console.log('若想要实现深拷贝，就将要拷贝的数组循环拆分到最后一层，将其转化成基础数据类型赋值，即可实现深拷贝');
     console.log('setTimeout有最小时间间隔限制，HTML5标准为4ms，小于4ms按照4ms处理，但是每个浏览器实现的最小间隔都不同。setInterval的最短间隔时间是10毫秒，也就是说，小于10毫秒的时间间隔会被调整到10毫秒');
     // setTimeout(() => {
@@ -146,6 +145,7 @@ export default {
     // });
     console.log('创建了一个dev分支');
     console.log('在master上写dev里能看到');
+    console.log(new Date(), '取的是本地时间，当修改本地时间时，得到的是修改后的时间');
   },
   methods: {
     changeChoose () {
@@ -236,10 +236,16 @@ export default {
 }
 </script>
 <style  scoped>
+#shuttle {
+  width: 100%;
+  height: 1000px;
+  background-image: url("./IU.jpg");
+  /* background-color: red; */
+}
 .header {
   width: 100%;
   height: 115px;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   color: #edaa35;
@@ -259,7 +265,7 @@ export default {
 }
 .shuttle {
   width: 100%;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-around;
 }
