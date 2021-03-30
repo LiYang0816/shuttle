@@ -629,8 +629,10 @@ export default {
       });
     },
     propertyTry () {
-      let fun = function (name) {
-        this.name = name;
+      class fun {
+        constructor(name) {
+          this.name = name;
+        }
       }
       fun.prototype.age = 16; // 为fun函数的原型对象添加age属性，该属性fun无法访问，fun的实例对象可以访问
       let f1 = new fun('hh'); // f1为构造函数fun的实例对象，其继承了fun的属性和方法，并可以访问fun的原型对象的属性和方法
