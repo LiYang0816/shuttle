@@ -119,6 +119,14 @@ let router = new Router({
         meta:{
           title:'退更打印'
         }
+      },
+      {
+        path:'/customStopSend',
+        name:'customStopSend',
+        component: () => import('@/view/customStopSend/index'),
+        meta:{
+          title:'自定义停发区域'
+        }
       }
 
     ]
