@@ -10,7 +10,13 @@ import 'vant/lib/index.css';
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 import store from './store/index'
-Vue.use(Element);
+
+Vue.use(Element, { size: 'small' });
+if (window.screen.width <= 1366) {
+  Vue.use(Element, { size: 'small' });
+} else {
+  Vue.use(Element, { size: 'medium' });
+}
 Vue.use(Vant);
 Vue.use(Antd);
 // Vue.use(Clipboard);
@@ -19,7 +25,6 @@ Vue.directive('title', {
     document.title = bind.value;
   }
 });
-console.log(process.env.VUE_APP_URL, process.env, 'process.env.VUE_APP_URL')
 Vue.prototype.axios = Axios;
 Vue.config.productionTip = false;
 

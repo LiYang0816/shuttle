@@ -1,5 +1,5 @@
 <template>
-  <div class="customStopSend">
+  <div class="customStopSend" v-title="'自定义停发区域'">
     <div class="query">
       <el-form
         ref="form"

@@ -127,6 +127,14 @@ let router = new Router({
         meta:{
           title:'自定义停发区域'
         }
+      },
+      {
+        path:'/diGui',
+        name:'diGui',
+        component:()=>import('@/view/jsCode/diGui'),
+        meta:{
+          title:'递归'
+        }
       }
 
     ]
