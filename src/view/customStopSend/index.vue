@@ -14,18 +14,26 @@
         </el-form-item>
         <el-form-item label="三段码">
           <el-input
+            ref="oneCode"
             v-model="form.oneCode"
             style="width: 80px; margin-right: 20px"
+            @input="inputLengthFocus('form', 'oneCode', 'oneCode', 'twoCode')"
           ></el-input>
           <el-input
+            ref="twoCode"
             v-model="form.twoCode"
             style="width: 80px; margin-right: 20px"
-            :disabled="!(form.oneCode.length == 3)"
+            :disabled="!(form.oneCode.length === 3)"
+            @input="inputLengthFocus('form', 'twoCode', 'oneCode', 'threeCode')"
           ></el-input>
           <el-input
+            ref="threeCode"
             v-model="form.threeCode"
             style="width: 80px; margin-right: 20px"
-            :disabled="!(form.twoCode.length == 3)"
+            :disabled="!(form.twoCode.length === 3)"
+            @input="
+              inputLengthFocus('form', 'threeCode', 'twoCode', 'threeCode')
+            "
           ></el-input>
         </el-form-item>
         <el-form-item>
@@ -44,7 +52,7 @@
       ></el-button>
     </div>
     <div class="tab">
-      <el-table>
+      <el-table :data="tableData">
         <el-table-column prop="index" label="序号" width="80">
         </el-table-column>
         <el-table-column prop="index" label="网点编码"> </el-table-column>
@@ -65,33 +73,56 @@
         </el-table-column>
       </el-table>
     </div>
-    <el-dialog ref="dialog" :title="dTitle" :visible.sync="dialogVisible">
-      <el-form ref="dForm" :model="dForm" v-if="dialogVisible">
+    <el-dialog
+      ref="dialog"
+      :title="dTitle"
+      :visible.sync="dialogVisible"
+      width="35%"
+    >
+      <el-form
+        ref="dForm"
+        :model="dForm"
+        v-if="dialogVisible"
+        label-position="right"
+        label-width="60px"
+      >
         <el-form-item label="网点" v-if="'分公司'">
-          <el-input v-model="dForm.orgName"></el-input>
+          <el-input v-model="dForm.orgName" style="width: 280px"></el-input>
         </el-form-item>
         <el-form-item label="三段码">
           <el-input
+            ref="dOneCode"
             v-model="dForm.oneCode"
             style="width: 80px; margin-right: 20px"
+            @input="
+              inputLengthFocus('dForm', 'oneCode', 'dOneCode', 'dTwoCode')
+            "
           ></el-input>
           <el-input
+            ref="dTwoCode"
             v-model="dForm.twoCode"
             style="width: 80px; margin-right: 20px"
-            :disabled="!dForm.oneCode"
+            :disabled="!(dForm.oneCode.length === 3)"
+            @input="
+              inputLengthFocus('dForm', 'twoCode', 'dOneCode', 'dThreeCode')
+            "
           ></el-input>
           <el-input
+            ref="dThreeCode"
             v-model="dForm.threeCode"
             style="width: 80px; margin-right: 20px"
-            :disabled="!dForm.twoCode"
+            :disabled="!(dForm.twoCode.length === 3)"
+            @input="
+              inputLengthFocus('dForm', 'threeCode', 'dTwoCode', 'dThreeCode')
+            "
           ></el-input>
         </el-form-item>
-        <el-form-item
-          ><el-button @click="dialogVisible = false">取 消</el-button>
+        <div class="dialog-dForm-footer">
+          <el-button @click="dialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="dialogVisible = false"
             >确 定</el-button
-          ></el-form-item
-        >
+          >
+        </div>
       </el-form>
     </el-dialog>
   </div>
@@ -109,12 +140,32 @@ export default {
         threeCode: ''
       },
       dTitle: '',
-      dialogVisible: false
+      dialogVisible: false,
+      dForm: {
+        orgName: '',
+        oneCode: '',
+        twoCode: '',
+        threeCode: ''
+      },
+      tableData: []
     }
   },
   components: {},
   mounted () { },
   methods: {
+    inputLengthFocus (form, code, blurRef, foucsRef) {
+      if (this[form][code].length > 3) {
+        this[form][code] = this[form][code].slice(0, 3);
+      }
+      if (this[form][code].length === 3) {
+        this.$nextTick(() => {
+          this.$refs[foucsRef].focus();
+        });
+      }
+      if (this[form][code].length === 0) {
+        this.$refs[blurRef].focus();
+      }
+    },
     // 编辑
     editTab (row) {
       console.log(row);
@@ -129,7 +180,12 @@ export default {
     },
     // 重置查询
     resetForm () {
-
+      this.form = {
+        orgName: '',
+        oneCode: '',
+        twoCode: '',
+        threeCode: ''
+      };
     },
     // 查询
     queryForm () {
@@ -150,6 +206,17 @@ export default {
   }
   .tab {
     width: 100%;
+  }
+  .el-dialog__wrapper {
+    .el-dialog {
+      .el-dialog__body {
+        .dialog-dForm-footer {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
   }
 }
 </style>

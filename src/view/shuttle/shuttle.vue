@@ -240,7 +240,9 @@ export default {
   width: 100%;
   height: 1000px;
   background-image: url("./IU.jpg");
-  /* background-color: red; */
+  background-size: 500px 500px;
+  background-color: red;
+  background-repeat: no-repeat;
 }
 .header {
   width: 100%;
