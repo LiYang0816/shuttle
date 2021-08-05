@@ -83,9 +83,9 @@ export default {
     )); // 深拷贝 
   },
   methods: {
-    ...mapMutations(['VMODEL']),
+    ...mapMutations({'SET_VMODEL':'button/SET_VMODEL'}),
     vmodelInput () {
-      this.VMODEL('button/VMODEL', this.vmodel);
+      this.SET_VMODEL(this.vmodel);
       console.log(this.vmodel, '哈哈', this.$store.state.button.vmodel, '哈哈')
     },
     whenDragStart (e) {

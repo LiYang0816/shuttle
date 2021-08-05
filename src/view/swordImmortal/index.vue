@@ -10,7 +10,7 @@
 <script>
 import lyyTable from './components/lyyTable';
 export default {
-  name: '',
+  name: 'swordImmortal',
   components: {
     lyyTable1: lyyTable,
     lyyTable2: lyyTable,

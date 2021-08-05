@@ -11,6 +11,12 @@ import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 import store from './store/index'
 
+import ytoJSC from "yto-jsc";
+
+import "yto-jsc/dist/static/css/index.css";
+
+Vue.use(ytoJSC);
+console.log("运行时", process.env.VUE_APP_URL);
 Vue.use(Element, { size: 'small' });
 if (window.screen.width <= 1366) {
   Vue.use(Element, { size: 'small' });
@@ -27,7 +33,7 @@ Vue.directive('title', {
 });
 Vue.prototype.axios = Axios;
 Vue.config.productionTip = false;
-
+window.globalComponents(Vue);
 new Vue({
   store,
   router,

@@ -1,4 +1,4 @@
-const state = () => ({
+const state = {
   pieceList: [{
     id: 1,
     canClick: true,
@@ -45,7 +45,7 @@ const state = () => ({
     content: ''
   }],
   vmodel: ''
-})
+}
 
 // getters 就像是过滤，将结果转成想要的，如 [a,b,c] => [aa,bb,cc]
 const getters = {
@@ -61,7 +61,7 @@ const mutations = {
     // console.log(res, 'store');
     return state.pieceList = [...res];
   },
-  VMODEL (state, res) {
+	SET_VMODEL (state, res) {
     return state.vmodel = res;
   }
 }

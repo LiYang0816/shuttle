@@ -19,6 +19,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
   color: #2c3e50;
+	height: 100%;
+	width: 100%;
   /* margin-top: 30px; */
 }
 * {

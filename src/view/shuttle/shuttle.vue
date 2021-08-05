@@ -1,339 +1,412 @@
 <template>
-  <div id="shuttle">
-    <header class="header">
-      <span class="headerMsg">{{ headerMsg }}</span>
-      <span class="programName">{{ programName }}</span>
-    </header>
-    <main class="main">
-      <div class="main-content">
-        <div v-if="choose">
-          <span @click="changeChoose">{{ mainMsg.music }}</span>
-          <div>
-            <span>{{ chooseTip }}</span>
-          </div>
-          <div class="shuttle">
-            <div class="goRight flex-col">
-              <div class="shuttle-winner er-shuttle">
-                <span>胜者组</span>
-              </div>
-              <el-checkbox
-                v-model="item.i"
-                :label="item.msg"
-                border
-                v-for="(item, index) in Winner"
-                :key="index"
-                class="checkBtn"
-                name="item.msg"
-                @change="leftCheck(item)"
-              ></el-checkbox>
-            </div>
-            <div class="goBtn">
-              <el-button
-                type="primary"
-                class="gotoBtn"
-                icon="el-icon-arrow-left"
-                @click="goLeft"
-                >Winner</el-button
-              >
-              <el-button type="primary" class="gotoBtn" @click="goRight">
-                Loser
-                <i class="el-icon-arrow-right"></i>
-              </el-button>
-            </div>
-            <div class="goLeft flex-col">
-              <div class="shuttle-loser er-shuttle">
-                <span>失败组</span>
-              </div>
-              <el-checkbox
-                v-model="item.i"
-                :label="item.msg"
-                border
-                v-for="(item, index) in Loser"
-                :key="index"
-                class="checkBtn"
-                name="item.msg"
-                @change="rightCheck(item)"
-              ></el-checkbox>
-            </div>
-          </div>
-        </div>
-        <div v-else class="dance-flex">
-          <span @click="changeChoose">{{ mainMsg.dance }}</span>
-          <div>
-            <span>{{ chooseTip }}</span>
-          </div>
-          <div style="width: 303px; font-size: 20px; text-align: left">
-            文字效果 <strong> 加粗 </strong> <em> 斜体 </em> <del> 删除线 </del>
-            <ins>下划线</ins>
-          </div>
-          <div style="width: 195px; font-size: 20px; text-align: left">
-            字符实体
-            <span>{{ space }}</span>
-            空格
-          </div>
-        </div>
-      </div>
-    </main>
-    <img src="@/assets/icon_fanhui.svg" alt="" />
-    <footer class="footer">
-      <span @click="goButtonRouter">{{ footerMsg }}</span>
-    </footer>
-  </div>
+	<div id="shuttle">
+		<header class="header">
+			<span class="headerMsg">{{ headerMsg }}</span>
+			<span class="programName">{{ programName }}</span>
+		</header>
+		<main class="main">
+			<div class="main-content">
+				<div v-if="choose">
+					<span @click="changeChoose">{{ mainMsg.music }}</span>
+					<div>
+						<span>{{ chooseTip }}</span>
+					</div>
+					<div class="shuttle">
+						<div class="goRight flex-col">
+							<div class="shuttle-winner er-shuttle">
+								<span>胜者组</span>
+							</div>
+							<el-checkbox v-model="item.i" :label="item.msg" border v-for="(item, index) in Winner" :key="index" class="checkBtn"
+							name="item.msg" @change="leftCheck(item)"></el-checkbox>
+						</div>
+						<div class="goBtn">
+							<el-button type="primary" class="gotoBtn" icon="el-icon-arrow-left" @click="goLeft">Winner</el-button>
+							<el-button type="primary" class="gotoBtn" @click="goRight">
+								Loser
+								<i class="el-icon-arrow-right"></i>
+							</el-button>
+						</div>
+						<div class="goLeft flex-col">
+							<div class="shuttle-loser er-shuttle">
+								<span>失败组</span>
+							</div>
+							<el-checkbox v-model="item.i" :label="item.msg" border v-for="(item, index) in Loser" :key="index" class="checkBtn"
+							name="item.msg" @change="rightCheck(item)"></el-checkbox>
+						</div>
+					</div>
+				</div>
+				<div v-else class="dance-flex">
+					<span @click="changeChoose">{{ mainMsg.dance }}</span>
+					<div>
+						<span>{{ chooseTip }}</span>
+					</div>
+					<div style="width: 303px; font-size: 20px; text-align: left">
+						文字效果 <strong> 加粗 </strong> <em> 斜体 </em> <del> 删除线 </del>
+						<ins>下划线</ins>
+					</div>
+					<div style="width: 195px; font-size: 20px; text-align: left">
+						字符实体
+						<span>{{ space }}</span>
+						空格
+					</div>
+				</div>
+			</div>
+		</main>
+		<!-- <div class="s-transfer">
+			<el-transfer style="text-align: left; display: inline-block" v-model="sTransfer" @change="handleChange" :data="sData">
+				<template  v-slot="{option}">
+				{{ option }}
+				</template>
+			</el-transfer>
+		</div> -->
+		<div @click="clickTest">{{dataTest}}</div>
+		<div>{{arrTest}}</div>
+		<img src="@/assets/icon_fanhui.svg" alt="" />
+		<img src="#" alt=" " class="test-bgc">
+		<footer class="footer">
+			<span @click="goButtonRouter">{{ footerMsg }}</span>
+		</footer>
+	</div>
 </template>
 <script>
-export default {
-  data () {
-    return {
-      headerMsg: '这里是',
-      footerMsg: '最后',
-      choose: false,
-      mainMsg: {
-        music: '唱',
-        dance: '跳'
-      },
-      chooseTip: '',
-      programName: '',
-      Winner: [{
-        i: false,
-        msg: "Uzi"
-      }, {
-        i: false,
-        msg: "Rookie"
-      }, {
-        i: false,
-        msg: "Ming"
-      }, {
-        i: false,
-        msg: "Mlxg"
-      }, {
-        i: false,
-        msg: "Letme"
-      }],
-      Loser: [{
-        i: false,
-        msg: "The shy"
-      }, {
-        i: false,
-        msg: "Jakelove"
-      }, {
-        i: false,
-        msg: "Xiao hu"
-      }, {
-        i: false,
-        msg: "Clearlove"
-      }, {
-        i: false,
-        msg: "Script"
-      }],
-      checkLeftList: [],
-      checkRightList: [],
-      space: '&nbsp;'
-    }
+	export default {
+		data() {
+			return {
+				headerMsg: '这里是',
+				footerMsg: '最后',
+				choose: false,
+				mainMsg: {
+					music: '唱',
+					dance: '跳'
+				},
+				chooseTip: '',
+				programName: '',
+				Winner: [{
+					i: false,
+					msg: "Uzi"
+				}, {
+					i: false,
+					msg: "Rookie"
+				}, {
+					i: false,
+					msg: "Ming"
+				}, {
+					i: false,
+					msg: "Mlxg"
+				}, {
+					i: false,
+					msg: "Letme"
+				}],
+				Loser: [{
+					i: false,
+					msg: "The shy"
+				}, {
+					i: false,
+					msg: "Jakelove"
+				}, {
+					i: false,
+					msg: "Xiao hu"
+				}, {
+					i: false,
+					msg: "Clearlove"
+				}, {
+					i: false,
+					msg: "Script"
+				}],
+				checkLeftList: [],
+				checkRightList: [],
+				space: '&nbsp;',
+				sTransfer: '',
+				dataTest:{
+					test:{
+						abc:'abc'
+					},
+					abc:'abc'
+				},
+				sData: [{
+					key: 1,
+					label: "The shy",
+					fast: 'false'
+				}, {
+					key: 2,
+					label: "Jakelove",
+					fast: 'false'
+				}, {
+					key: 3,
+					label: "Xiao hu",
+					fast: 'false'
+				}, {
+					key: 4,
+					label: "Clearlove",
+					fast: 'false'
+				}, {
+					key: 5,
+					label: "Script",
+					fast: 'false'
+				}, {
+					key: 6,
+					label: "Uzi",
+					fast: 'false'
+				}, {
+					key: 7,
+					label: "Rookie",
+					fast: 'false'
+				}, {
+					key: 8,
+					label: "Ming",
+					fast: 'false'
+				}, {
+					key: 9,
+					label: "Mlxg",
+					fast: 'false'
+				}, {
+					key: 10,
+					label: "Letme",
+					fast: 'false'
+				}],
+				arrTest:['321','222','333'],
+				creatTest:'123'
+			}
 
-  },
-  created () {
-    this.changeChoose();
-  },
-  mounted () {
-    console.log('若想要实现深拷贝，就将要拷贝的数组循环拆分到最后一层，将其转化成基础数据类型赋值，即可实现深拷贝');
-    console.log('setTimeout有最小时间间隔限制，HTML5标准为4ms，小于4ms按照4ms处理，但是每个浏览器实现的最小间隔都不同。setInterval的最短间隔时间是10毫秒，也就是说，小于10毫秒的时间间隔会被调整到10毫秒');
-    // setTimeout(() => {
-    //   console.log('先还是后？');
-    // });
-    // setTimeout(() => {
-    //   console.log('后还是先？');
-    // });
-    console.log('创建了一个dev分支');
-    console.log('在master上写dev里能看到');
-    console.log(new Date(), '取的是本地时间，当修改本地时间时，得到的是修改后的时间');
-  },
-  methods: {
-    changeChoose () {
-      this.choose = !this.choose;
-      const chooseTip = '原来你喜欢';
-      if (this.choose) {
-        this.chooseTip = chooseTip + this.mainMsg.music;
-        this.programName = "China good 声音"
-      } else {
-        this.chooseTip = chooseTip + this.mainMsg.dance;
-        this.programName = "China have 嘻哈"
-      }
-    },
-    goRight () {
-      // console.log("左侧选中的值的长度", this.checkLeftList.length)
-      if (this.checkLeftList.length > 0) {
-        this.checkLeftList.forEach(ele => {
-          // console.log("左穿右穿梭值", ele);
-          this.Loser.push({
-            i: false,
-            msg: ele
-          })
-          this.Winner.forEach((elem, i) => {
-            if (elem.i == true && elem.msg == ele) {
-              this.Winner.splice(i, 1)
-            }
-            // console.log(elem, i, "参数")
-          })
-        });
-        this.checkLeftList = [];
-      }
+		},
+		created() {
+			console.log(this.creatTest,'created获取data属性');
+			this.changeChoose();
+		},
+		mounted() {
+			console.log('若想要实现深拷贝，就将要拷贝的数组循环拆分到最后一层，将其转化成基础数据类型赋值，即可实现深拷贝');
+			console.log(
+				'setTimeout有最小时间间隔限制，HTML5标准为4ms，小于4ms按照4ms处理，但是每个浏览器实现的最小间隔都不同。setInterval的最短间隔时间是10毫秒，也就是说，小于10毫秒的时间间隔会被调整到10毫秒'
+			);
+			// setTimeout(() => {
+			//   console.log('先还是后？');
+			// });
+			// setTimeout(() => {
+			//   console.log('后还是先？');
+			// });
+			console.log('创建了一个dev分支');
+			console.log('在master上写dev里能看到');
+			console.log(new Date(), '取的是本地时间，当修改本地时间时，得到的是修改后的时间');
+			// this.dataTest.test.abc = 'cba';
+			this.dataTest['abc'] = '123';
+			console.log('可以通过属性Key直接修改对象，但不能新增对象的属性');
+			this.arrTest[1] = '666'; 
+			console.log('无法通过索引直接修改数组');
+			// this.$set(this.arrTest,1,'666');
+			
+		},
+		methods: {
+			clickTest(){
+				this.dataTest.test.abc = 'cba';
+				this.dataTest.datas = '123';
+				this.dataTest.tryData.abc = 'abc';
+				// this.$set(dataTest)
+			},
+			changeChoose() {
+				console.log('created触发methods方法');
+				this.choose = !this.choose;
+				const chooseTip = '原来你喜欢';
+				if (this.choose) {
+					this.chooseTip = chooseTip + this.mainMsg.music;
+					this.programName = "China good 声音"
+				} else {
+					this.chooseTip = chooseTip + this.mainMsg.dance;
+					this.programName = "China have 嘻哈"
+				}
+			},
+			goRight() {
+				// console.log("左侧选中的值的长度", this.checkLeftList.length)
+				if (this.checkLeftList.length > 0) {
+					this.checkLeftList.forEach(ele => {
+						// console.log("左穿右穿梭值", ele);
+						this.Loser.push({
+							i: false,
+							msg: ele
+						})
+						this.Winner.forEach((elem, i) => {
+							if (elem.i == true && elem.msg == ele) {
+								this.Winner.splice(i, 1)
+							}
+							// console.log(elem, i, "参数")
+						})
+					});
+					this.checkLeftList = [];
+				}
 
-    },
-    goLeft () {
-      // console.log("右侧选中的值的长度", this.checkLeftList.length)
-      if (this.checkRightList.length > 0) {
-        this.checkRightList.forEach(ele => {
-          // console.log("右穿左穿梭值", ele);
-          this.Winner.push({
-            i: false,
-            msg: ele
-          })
-          this.Loser.forEach((elem, i) => {
-            if (elem.i == true && elem.msg == ele) {
-              this.Loser.splice(i, 1)
-            }
-            // console.log(elem, i, "参数")
-          })
-        });
-        this.initCheck();
-        // console.log(this.checkRightList, "msgmsgmsg")
-      }
-    },
-    initCheck () {
-      this.checkRightList = [];
-      this.checkLeftList = [];
-    },
-    leftCheck (v) {
-      if (v.i && !this.checkLeftList.includes(v.msg)) {
-        this.checkLeftList.push(v.msg);
-      }
-      else {
-        if (this.checkLeftList.includes(v.msg)) {
-          this.checkLeftList.splice(this.checkLeftList.indexOf(v.msg), 1);
-        }
-      }
-      // console.log("左侧选中的值", this.checkLeftList);
+			},
+			goLeft() {
+				// console.log("右侧选中的值的长度", this.checkLeftList.length)
+				if (this.checkRightList.length > 0) {
+					this.checkRightList.forEach(ele => {
+						// console.log("右穿左穿梭值", ele);
+						this.Winner.push({
+							i: false,
+							msg: ele
+						})
+						this.Loser.forEach((elem, i) => {
+							if (elem.i == true && elem.msg == ele) {
+								this.Loser.splice(i, 1)
+							}
+							// console.log(elem, i, "参数")
+						})
+					});
+					this.initCheck();
+					// console.log(this.checkRightList, "msgmsgmsg")
+				}
+			},
+			initCheck() {
+				this.checkRightList = [];
+				this.checkLeftList = [];
+			},
+			leftCheck(v) {
+				if (v.i && !this.checkLeftList.includes(v.msg)) {
+					this.checkLeftList.push(v.msg);
+				} else {
+					if (this.checkLeftList.includes(v.msg)) {
+						this.checkLeftList.splice(this.checkLeftList.indexOf(v.msg), 1);
+					}
+				}
+				// console.log("左侧选中的值", this.checkLeftList);
 
-    },
-    rightCheck (v) {
-      if (v.i && !this.checkRightList.includes(v.msg)) {
-        this.checkRightList.push(v.msg);
-      }
-      else {
-        if (this.checkRightList.includes(v.msg)) {
-          this.checkRightList.splice(this.checkRightList.indexOf(v.msg), 1);
-        }
-      }
-      // console.log("右侧选中的值", this.checkRightList);
-    },
-    goButtonRouter () {
-      this.$router.push({
-        path: '/button'
-      })
-    }
-  }
+			},
+			rightCheck(v) {
+				if (v.i && !this.checkRightList.includes(v.msg)) {
+					this.checkRightList.push(v.msg);
+				} else {
+					if (this.checkRightList.includes(v.msg)) {
+						this.checkRightList.splice(this.checkRightList.indexOf(v.msg), 1);
+					}
+				}
+				// console.log("右侧选中的值", this.checkRightList);
+			},
+			goButtonRouter() {
+				this.$router.push({
+					path: '/button'
+				})
+			},
+			handleChange() {
 
-}
+			}
+		}
+
+	}
 </script>
-<style  scoped>
-#shuttle {
-  width: 100%;
-  height: 1000px;
-  background-image: url("./IU.jpg");
+<style scoped>
+	#shuttle {
+		width: 100%;
+		height: 1000px;
+		/* background-image: url("./IU.jpg");
   background-size: 500px 500px;
-  background-color: red;
-  background-repeat: no-repeat;
-}
-.header {
-  width: 100%;
-  height: 115px;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  color: #edaa35;
-  font-size: 24px;
-  font-weight: 700;
-}
+  background-repeat: no-repeat; */
+		/* background-color: red; */
+	}
 
-.header .headerMsg {
-  width: 30px;
-  color: #edaa35;
-  font-size: 24px;
-}
+	.header {
+		width: 100%;
+		height: 115px;
+		display: none;
+		justify-content: center;
+		align-items: center;
+		color: #edaa35;
+		font-size: 24px;
+		font-weight: 700;
+	}
 
-.header .programName {
-  color: rgba(216, 39, 22, 0.952);
-  font-size: 42px;
-}
-.shuttle {
-  width: 100%;
-  display: none;
-  align-items: center;
-  justify-content: space-around;
-}
-.shuttle-winner {
-  color: #ee2c2c;
-}
-.shuttle-loser {
-  color: #363636;
-}
-.er-shuttle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-  font-weight: 700;
-}
-.main {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.main-content {
-  width: 100%;
-}
-.dance-flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.checkBtn {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 110px;
-  height: 40px;
-  margin-left: 0 !important;
-  margin-right: 0;
-}
+	.header .headerMsg {
+		width: 30px;
+		color: #edaa35;
+		font-size: 24px;
+	}
 
-.flex-col {
-  display: flex;
-  flex-direction: column;
-  height: 500px;
-}
+	.header .programName {
+		color: rgba(216, 39, 22, 0.952);
+		font-size: 42px;
+	}
 
-.goBtn {
-  display: flex;
-  flex-direction: column;
-  height: 325px;
-}
+	.shuttle {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+	}
 
-.gotoBtn {
-  width: 150px;
-  height: 40px;
-  margin-left: 0 !important;
-  margin-bottom: 10px;
-}
-.footer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  bottom: 0;
-}
+	.shuttle-winner {
+		color: #ee2c2c;
+	}
+
+	.shuttle-loser {
+		color: #363636;
+	}
+
+	.er-shuttle {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 10px;
+		font-weight: 700;
+	}
+
+	.main {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+	}
+
+	.main-content {
+		width: 100%;
+	}
+
+	.dance-flex {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+	}
+
+	.checkBtn {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		width: 110px;
+		height: 40px;
+		margin-left: 0 !important;
+		margin-right: 0;
+	}
+
+	.flex-col {
+		display: flex;
+		flex-direction: column;
+		height: 500px;
+	}
+	.test-bgc{
+		display: inline-block; 
+		background:url('./IU.jpg') no-repeat bottom left;
+		background-size: 100px 100px;
+		width: 100px;
+		height: 100px;
+/* padding:93px 100px 75px 100px */
+	}
+	.goBtn {
+		display: flex;
+		flex-direction: column;
+		height: 325px;
+	}
+
+	.gotoBtn {
+		width: 150px;
+		height: 40px;
+		margin-left: 0 !important;
+		margin-bottom: 10px;
+	}
+
+	.footer {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: fixed;
+		bottom: 0;
+	}
 </style>

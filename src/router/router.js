@@ -18,126 +18,165 @@ import cssSticky from '../view/test/cssSticky'
 import orderImport from '../view/orderImport/index'
 import returnChange from '../view/returnChange/index'
 import rcModify from '../view/returnChange/components/modify'
+import tableSelect from '../view/tableSelect/index.vue'
 
 Vue.use(Router)
 
 let router = new Router({
-  routes:
-    [
-      {
-        path: '/',
-        name: 'shuttle',
-        component: Shuttle
-      },
-      {
-        path: '/button',
-        name: 'button',
-        component: Button
-      },
-      {
-        path: '/element',
-        name: 'element',
-        component: Element
-      },
-      {
-        path: '/Task',
-        name: 'Task',
-        component: Task
-      },
-      {
-        path: '/taskFrom',
-        name: 'taskFrom',
-        component: TaskFrom
-      },
-      {
-        path: '/testIndex',
-        name: 'testIndex',
-        component: testIndex
-      },
-      {
-        path: '/VantIndex',
-        name: 'VantIndex',
-        component: VantIndex
-      },
-      {
-        path: '/LyyTree',
-        name: 'LyyTree',
-        component: LyyTree
-      },
-      {
-        path: '/LyyDialog',
-        name: 'LyyDialog',
-        component: LyyDialog
-      },
-      {
-        path: '/antDesign',
-        name: 'antDesign',
-        component: antDesign
-      },
-      {
-        path: '/swordImmortal',
-        name: 'swordImmortal',
-        component: swordImmortal
-      },
-      {
-        path: '/cssPosition',
-        name: 'cssPosition',
-        component: cssPosition
-      },
-      {
-        path: '/test',
-        name: 'test',
-        component: test
-      },
-      {
-        path: '/positionSticky',
-        name: 'positionSticky',
-        component: positionSticky
-      },
-      {
-        path: '/cssSticky',
-        name: 'cssSticky',
-        component: cssSticky
-      },
-      {
-        path: '/orderImport',
-        name: 'orderImport',
-        component: orderImport
-      },
-      {
-        path: '/returnChange',
-        name: 'returnChange',
-        component: returnChange,
-        meta:{
-          title:'退回更址打印'
-        }
-      },
-      {
-        path: '/rcModify',
-        name: 'rcModify',
-        component: rcModify,
-        meta:{
-          title:'退更打印'
-        }
-      },
-      {
-        path:'/customStopSend',
-        name:'customStopSend',
-        component: () => import('@/view/customStopSend/index'),
-        meta:{
-          title:'自定义停发区域'
-        }
-      },
-      {
-        path:'/diGui',
-        name:'diGui',
-        component:()=>import('@/view/jsCode/diGui'),
-        meta:{
-          title:'递归'
-        }
-      }
-
-    ]
+	mode: 'history',
+	routes: [{
+			path: '/',
+			name: 'shuttle',
+			component: Shuttle
+		},
+		{
+			path: '/button',
+			name: 'button',
+			component: Button
+		},
+		{
+			path: '/element',
+			name: 'element',
+			component: Element
+		},
+		{
+			path: '/Task',
+			name: 'Task',
+			component: Task
+		},
+		{
+			path: '/taskFrom',
+			name: 'taskFrom',
+			component: TaskFrom
+		},
+		{
+			path: '/testIndex',
+			name: 'testIndex',
+			component: testIndex
+		},
+		{
+			path: '/VantIndex',
+			name: 'VantIndex',
+			component: VantIndex
+		},
+		{
+			path: '/LyyTree',
+			name: 'LyyTree',
+			component: LyyTree
+		},
+		{
+			path: '/LyyDialog',
+			name: 'LyyDialog',
+			component: LyyDialog
+		},
+		{
+			path: '/antDesign',
+			name: 'antDesign',
+			component: antDesign
+		},
+		{
+			path: '/swordImmortal',
+			name: 'swordImmortal',
+			component: swordImmortal
+		},
+		{
+			path: '/cssPosition',
+			name: 'cssPosition',
+			component: cssPosition
+		},
+		{
+			path: '/test',
+			name: 'test',
+			component: test
+		},
+		{
+			path: '/positionSticky',
+			name: 'positionSticky',
+			component: positionSticky
+		},
+		{
+			path: '/cssSticky',
+			name: 'cssSticky',
+			component: cssSticky
+		},
+		{
+			path: '/orderImport',
+			name: 'orderImport',
+			component: orderImport
+		},
+		{
+			path: '/returnChange',
+			name: 'returnChange',
+			component: returnChange,
+			meta: {
+				title: '退回更址打印'
+			}
+		},
+		{
+			path: '/rcModify',
+			name: 'rcModify',
+			component: rcModify,
+			meta: {
+				title: '退更打印'
+			}
+		},
+		{
+			path: '/customStopSend',
+			name: 'customStopSend',
+			component: () => import('@/view/customStopSend/index'),
+			meta: {
+				title: '自定义停发区域'
+			}
+		},
+		{
+			path: '/diGui',
+			name: 'diGui',
+			component: () => import('@/view/jsCode/diGui'),
+			meta: {
+				title: '递归'
+			}
+		},
+		{
+			path: '/tableSelect',
+			name: 'tableSelect',
+			component: tableSelect,
+			meta: {
+				title: '表格选择'
+			}
+		},
+		{
+			path: '/dateTime',
+			name: 'dateTime',
+			component: () => import('@/view/dateTime/indexs'),
+			meta: {
+				title: 'dateTime'
+			}
+		},
+		{
+			path: '/juzhong',
+			name: 'juzhong',
+			component: () => import('@/view/juzhong/index'),
+			meta: {
+				title: 'juzhong'
+			}
+		},
+		// {
+		// 	path: '/scroll-num',
+		// 	name: 'scrollNum',
+		// 	component: () => import('@/view/cssTest/scrollNum/index.vue'),
+		// 	meta: {
+		// 		title: 'scrollNum'
+		// 	}
+		// }
+		{
+			path: '/mapIndex',
+			name: 'mapIndex',
+			component: () => import('@/view/map/index'),
+			meta: {
+				title: 'mapIndex'
+			}
+		}
+	]
 })
 
 export default router;
